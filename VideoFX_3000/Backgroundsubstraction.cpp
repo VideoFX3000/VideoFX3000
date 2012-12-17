@@ -5,12 +5,12 @@ using namespace std;
 
 Backgroundsubstraction::Backgroundsubstraction(void){
 	namedWindow("Video");
-	namedWindow("Result");
+/*	namedWindow("Result");
 	namedWindow("First");
 	namedWindow("Gray");
 	namedWindow("Diff");
 	namedWindow("Trafo");
-}
+*/}
 
 Backgroundsubstraction::~Backgroundsubstraction(void){
 	destroyAllWindows();
@@ -19,7 +19,7 @@ void Backgroundsubstraction::showVideoFrame(const cv::Mat& videoFrame){
 	imshow("Video", videoFrame);
 }
 void Backgroundsubstraction::processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame){
-	Mat grayFrame (frameHeight, frameWidth, CV_16UC1);
+	Mat grayFrame (frameHeight, frameWidth, CV_8UC1);
 	Mat originalGray;
 
 	cvtColor(videoFrame, grayFrame, CV_BGR2GRAY);
@@ -49,8 +49,8 @@ void Backgroundsubstraction::processFrame(const cv::Mat& videoFrame, cv::Mat& pr
 	// Opening (entfernt Rauschen im Hintergrund / schließt Löcher im Hintergrund) --> erode, dilate
 	// Closing (schließt Löcher im Vordergrund) --> dilate, erode
 //	erode(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
-	dilate(processedFrame, processedFrame, Mat(3, 3, CV_16UC1));
-	erode(processedFrame, processedFrame, Mat(3, 3, CV_16UC1));
+	dilate(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
+	erode(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
 
 	Mat copyOfFrame;
 

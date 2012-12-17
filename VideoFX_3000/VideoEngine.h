@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <conio.h> //für kbhit()
-//3Horst
+
 
 class VideoEngine
 {
@@ -14,7 +14,9 @@ public:
 	char getInput();
 	bool openVideo(const std::string& path);
 	void runVideo();
-	//void writeVideo();
+	void writeVideo(const cv::Mat& videoFrame);
+	void stopVideo(const cv::Mat& videoFrame);
+	void loopVideo();
 	virtual void showVideoFrame(const cv::Mat& videoFrame);
 	virtual void processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame);
 	virtual void showProcessedFrame(const cv::Mat&processedFrame);
@@ -25,6 +27,9 @@ protected:
 	int frameNumber;
 	int frameRate;
 	int input;
+	cv::VideoWriter videoWriter;
+	bool writerCheck;
+	bool firstCall;
 };
 
 #endif
