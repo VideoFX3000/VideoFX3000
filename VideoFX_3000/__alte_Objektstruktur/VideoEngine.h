@@ -4,15 +4,10 @@
 #include <string>
 #include <iostream>
 #include <conio.h> //für kbhit()
-#include "ToolInterface.h"
-#include "LooperEffect.h"
 
 
 class VideoEngine
 {
-public:
-	//ToolInterface* tool;
-
 public:
 	VideoEngine();
 	virtual ~VideoEngine(void);
@@ -21,10 +16,10 @@ public:
 	void runVideo();
 	void writeVideo(const cv::Mat& videoFrame);
 	void stopVideo(const cv::Mat& videoFrame);
+	void loopVideo();
 	virtual void showVideoFrame(const cv::Mat& videoFrame);
 	virtual void processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame);
 	virtual void showProcessedFrame(const cv::Mat&processedFrame);
-	void setTool(ToolInterface* tool);
 	//Ringbuffer-Funktionen
 	void write(const cv::Mat& videoFrame);
 	cv::Mat readWithDelay(int delay);
@@ -38,8 +33,6 @@ protected:
 	int input;
 	int effectType;
 	cv::VideoWriter videoWriter;
-	LooperEffect loopereffect;
-	ToolInterface* tool;
 	bool writerCheck;
 	bool firstCall;
 	//Ringbuffer-Funktionen

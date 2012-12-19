@@ -1,4 +1,4 @@
-#include "VideoEngine.h"
+//#include "VideoEngine.h"
 #include "Backgroundsubstraction.h"
 using namespace cv;
 using namespace std;
@@ -13,7 +13,7 @@ int main()
 		videoDelay.runVideo();
 	}*/
 	
-	VideoEngine app;
+	Backgroundsubstraction app;
 
 	if (app.openVideo(videoPath,1))
 	{

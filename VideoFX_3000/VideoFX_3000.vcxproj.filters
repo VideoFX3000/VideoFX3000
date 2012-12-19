@@ -24,12 +24,24 @@
     <ClCompile Include="VideoEngineMain.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ToolInterface.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="LooperEffect.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Backgroundsubstraction.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="VideoEngine.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolInterface.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="LooperEffect.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

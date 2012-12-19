@@ -1,12 +1,9 @@
 #include "Backgroundsubstraction.h"
-#include <opencv2/opencv.hpp>
 #include <vector>
 using namespace cv;
 using namespace std;
 
-Backgroundsubstraction::Backgroundsubstraction(void)
-	: frameNumber(0)
-{
+Backgroundsubstraction::Backgroundsubstraction(void){
 	namedWindow("Video");
 /*	namedWindow("Result");
 	namedWindow("First");
@@ -18,18 +15,17 @@ Backgroundsubstraction::Backgroundsubstraction(void)
 Backgroundsubstraction::~Backgroundsubstraction(void){
 	destroyAllWindows();
 }
-
-Mat Backgroundsubstraction::process(Mat& input)
-{
-	Mat processedFrame;
-	Mat grayFrame (input.rows, input.cols, CV_8UC1);
+void Backgroundsubstraction::showVideoFrame(const cv::Mat& videoFrame){
+	imshow("Video", videoFrame);
+}
+void Backgroundsubstraction::processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame){
+	Mat grayFrame (frameHeight, frameWidth, CV_8UC1);
 	Mat originalGray;
 
-	cvtColor(input, grayFrame, CV_BGR2GRAY);
+	cvtColor(videoFrame, grayFrame, CV_BGR2GRAY);
 		
 	grayFrame.copyTo(originalGray);
 	
-	frameNumber++;
 	if (frameNumber % 5 == 0)
 	{
 		grayFrame.copyTo(firstFrame);
@@ -41,6 +37,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 	}
 	else
 	{
+//		grayFrame = firstFrame - grayFrame;
 		absdiff(grayFrame, firstFrame, grayFrame);
 
 		int thresh = getTrackbarPos("Thresh", "Video");
@@ -90,5 +87,12 @@ Mat Backgroundsubstraction::process(Mat& input)
 		}
 
 	}
-	return processedFrame;
+
+	imshow("Gray", originalGray);
+	
+}
+void Backgroundsubstraction::showProcessedFrame(const cv::Mat&processedFrame){
+	imshow("Result", processedFrame);
+	if(frameNumber > 4)
+	imshow("First", firstFrame);
 }

@@ -1,19 +1,18 @@
 #ifndef _BACKGROUNDSUBSTRACTION_H
 #define _BACKGROUNDSUBSTRACTION_H
 
-#include "VideoEngine.h"
+#include "ToolInterface.h"
 
 
-class Backgroundsubstraction: public VideoEngine
+class Backgroundsubstraction: public ToolInterface //bedeutet: ToolInterface ist die Basisklasse von Backgroundsub
 {
 public:
 	Backgroundsubstraction(void);
 	~Backgroundsubstraction(void);
-	virtual void showVideoFrame(const cv::Mat& videoFrame);
-	virtual void processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame);
-	virtual void showProcessedFrame(const cv::Mat& processedFrame);
+	virtual cv::Mat process(cv::Mat& input);
 private:
-	cv::Mat firstFrame, blueFirst, greenFirst, redFirst;
+	cv::Mat firstFrame;
+	int frameNumber;
 };
 
 #endif
