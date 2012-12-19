@@ -17,7 +17,7 @@ public:
 	void writeVideo(const cv::Mat& videoFrame);
 	void stopVideo(const cv::Mat& videoFrame);
 	void loopVideo();
-	void showVideoFrame(const cv::Mat& videoFrame);
+	virtual void showVideoFrame(const cv::Mat& videoFrame);
 	virtual void processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame);
 	virtual void showProcessedFrame(const cv::Mat&processedFrame);
 	//Ringbuffer-Funktionen

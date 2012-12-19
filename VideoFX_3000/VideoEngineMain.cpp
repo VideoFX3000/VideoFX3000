@@ -1,36 +1,24 @@
-#include "VideoEngine.h"
+//#include "VideoEngine.h"
+#include "Backgroundsubstraction.h"
 using namespace cv;
 using namespace std;
 //Bearbeitung
-/* Ivonnes Änderung */
+/* Ivonnes Änderung wird zu Dannys Öngerung*/
 
 int main()
 {
-	const string videoPath = "C:/Users/Public/Videos/Micro-dance.AVI";
-	//const string videoPath = "c:/Entwicklung/micro-dance.mpeg";
+	const string videoPath = "C:/Users/Public/Videos/Micro-dance_2_.AVI";
+	//const string videoPath = "C:\\Users\\Public\\Videos\\Micro-dance.AVI";
 	/*
 	VideoEngine videoDelay;
 	if(videoDelay.openVideo(videoPath, 1)){
 		videoDelay.runVideo();
 	}*/
-
-	VideoCapture videoCap;
-
-	videoCap.open(0);
-	if(videoCap.isOpened())
-		cout << "open";
-
-	getchar();
-	getchar();
-
-
-
 	
-	/*
 	Backgroundsubstraction app;
 
-	if (app.openVideo(videoPath))
+	if (app.openVideo(videoPath,1))
 	{
 		app.runVideo();
-	}*/
+	}
 }

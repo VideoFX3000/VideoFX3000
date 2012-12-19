@@ -98,7 +98,7 @@ void VideoEngine::loopVideo(){
 	}while(abfrage != 'q');
 }
 void VideoEngine::showVideoFrame(const Mat&videoFrame){
-	imshow("Video", videoFrame);
+	//imshow("Video", videoFrame);
 }
 void VideoEngine::processFrame(const Mat&videoFrame, Mat& processedFrame){
 
