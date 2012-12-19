@@ -3,7 +3,7 @@
 using namespace cv;
 using namespace std;
 //Bearbeitung
-/* Ivonnes Änderung wird zu Dannys Öngerung*/
+/* Ivonnes Änderung wird zu Dannys Öngerung 2*/
 
 int main()
 {
