@@ -1,7 +1,7 @@
 #include "VideoEngine.h"
 using namespace cv;
 using namespace std;
-
+//Bearbeitung
 
 int main()
 {
