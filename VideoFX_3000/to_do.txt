@@ -1,0 +1,8 @@
+To Do Liste:
+
+- Videobuffer, Delay
+- Geisterbilder-Effekt bauen
+- Webcam
+
+- Looper: schneller in den neuen Loop reingehen
+- Looper: Webcamfunktion
