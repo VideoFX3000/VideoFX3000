@@ -3,8 +3,7 @@ using namespace cv;
 using namespace std;
 
 VideoEngine::VideoEngine(void)
-	: tool(0)
-	, frameWidth (0)
+	: frameWidth (0)
 	, frameHeight(0)
 	, input(0)
 	, effectType(0)
@@ -19,18 +18,16 @@ VideoEngine::VideoEngine(void)
 VideoEngine::~VideoEngine(void)
 {
 }
-void VideoEngine::setTool(ToolInterface* tool){
-	this->tool = tool;
-}
 
 bool VideoEngine::openVideo(const std::string& path, const int& effectType){
-	videoCapture.open(0);
+	videoCapture.open(path);
 	this->effectType = effectType;
 	if (videoCapture.isOpened()){
 		frameNumber = 0;
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
+		loop.initialize(frameWidth, frameHeight);
 		return true;
 	}
 	else {
@@ -53,18 +50,22 @@ void VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 
-		/*		Mat processedFrame (frameHeight, frameWidth, CV_8UC1);
-		processFrame(videoFrame, processedFrame);
+		loop.processFrame(videoFrame);//HIER WEITER
+		//HIER aufruf von process(videoFrame)
+
+/*		Mat processedFrame (frameHeight, frameWidth, CV_8UC1);
 		showProcessedFrame(processedFrame);
-		*/
-		loopereffect->process(videoFrame);
+*/		
+
 		if(kbhit())
 			input = getch();
 		if(input == 'r' || writerCheck == true)
 			writeVideo(videoFrame);
 		if(input == 's')
 			stopVideo(videoFrame);
-		loopereffect.loopInputCheck(input);
+			
+		loop.loopInputCheck(input);
+		waitKey(30);
 	}
 }
 //schreibt aktuellen Videodatei
@@ -72,6 +73,7 @@ void VideoEngine::writeVideo(const Mat& videoFrame){
 	cout << "---writing" << endl;
 	if(firstCall == true){
 		videoWriter.open("Video.avi", CV_FOURCC('D', 'I', 'V', 'X'), frameRate, Size(frameWidth, frameHeight), true);
+		cout << videoWriter.isOpened() << endl;//scheinbar kann das Video nicht mehr geschrieben werden
 		firstCall = false;
 	}
 	videoWriter.write(videoFrame);
@@ -85,9 +87,14 @@ void VideoEngine::stopVideo(const Mat& videoFrame){
 	firstCall = true;
 }
 
-void VideoEngine::showVideoFrame(const cv::Mat& videoFrame){}
-void VideoEngine::processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame){}
-void VideoEngine::showProcessedFrame(const cv::Mat&processedFrame){}
+void VideoEngine::showVideoFrame(const Mat&videoFrame){
+	imshow("Video", videoFrame);
+}
+
+void VideoEngine::showProcessedFrame(const Mat&processedFrame){
+	imshow("Result", processedFrame);
+
+}
 
 //-------------------------Ring Buffer
 //schreibt aktuelles Videoframe in den Buffer; erhöht den Index

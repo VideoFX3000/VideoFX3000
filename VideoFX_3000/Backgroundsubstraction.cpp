@@ -7,8 +7,8 @@ using namespace std;
 Backgroundsubstraction::Backgroundsubstraction(void)
 	: frameNumber(0)
 {
-	namedWindow("Video");
-/*	namedWindow("Result");
+/*	namedWindow("Video");
+	namedWindow("Result");
 	namedWindow("First");
 	namedWindow("Gray");
 	namedWindow("Diff");
@@ -30,7 +30,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 	grayFrame.copyTo(originalGray);
 	
 	frameNumber++;
-	if (frameNumber % 5 == 0)
+	if (frameNumber == 2/*% 5 == 0*/)
 	{
 		grayFrame.copyTo(firstFrame);
 	}	

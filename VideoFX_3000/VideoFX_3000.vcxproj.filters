@@ -24,9 +24,6 @@
     <ClCompile Include="VideoEngineMain.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ToolInterface.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="LooperEffect.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -42,6 +39,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="LooperEffect.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

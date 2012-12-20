@@ -1,13 +1,12 @@
 #ifndef TOOLINTERFACE_H
 #define TOOLINTERFACE_H
 
-#include "VideoEngine.h"
+#include <opencv2/opencv.hpp>
 
 class ToolInterface
 {
 public:
-	ToolInterface(void);
-	virtual ~ToolInterface(void);
+	virtual ~ToolInterface(void){};
 	virtual cv::Mat process(cv::Mat& input) = 0;
 };
 

@@ -6,42 +6,38 @@
 #include <conio.h> //für kbhit()
 #include "ToolInterface.h"
 #include "LooperEffect.h"
-
+#include "Backgroundsubstraction.h"
 
 class VideoEngine
 {
 public:
-	//ToolInterface* tool;
-
-public:
 	VideoEngine();
 	virtual ~VideoEngine(void);
-	char getInput();
 	bool openVideo(const std::string& path, const int& effectType);
 	void runVideo();
+	//Grundlegende Verarbeitungsfunktionen
 	void writeVideo(const cv::Mat& videoFrame);
 	void stopVideo(const cv::Mat& videoFrame);
-	virtual void showVideoFrame(const cv::Mat& videoFrame);
-	virtual void processFrame(const cv::Mat& videoFrame, cv::Mat& processedFrame);
-	virtual void showProcessedFrame(const cv::Mat&processedFrame);
-	void setTool(ToolInterface* tool);
+	//Anzeige-Funktionen
+	void showVideoFrame(const cv::Mat& videoFrame);
+	void showProcessedFrame(const cv::Mat&processedFrame);
 	//Ringbuffer-Funktionen
 	void write(const cv::Mat& videoFrame);
 	cv::Mat readWithDelay(int delay);
 	void resize(int size);
-protected:
+private:
 	cv::VideoCapture videoCapture;
 	int frameWidth;
 	int frameHeight;
 	int frameNumber;
-	int frameRate;
+	float frameRate;
 	int input;
 	int effectType;
 	cv::VideoWriter videoWriter;
-	LooperEffect loopereffect;
-	ToolInterface* tool;
+	//ToolInterface* tool; //wird momentan erst in LooperEffect.h gebraucht
 	bool writerCheck;
 	bool firstCall;
+	LooperEffect loop;
 	//Ringbuffer-Funktionen
 	std::vector<cv::Mat> buffer;
 	int writeIndex;
