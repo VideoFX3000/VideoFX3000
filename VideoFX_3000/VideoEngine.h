@@ -25,7 +25,7 @@ public:
 	void write(const cv::Mat& videoFrame);
 	cv::Mat readWithDelay(int delay);
 	void resize(int size);
-private:
+public:
 	cv::VideoCapture videoCapture;
 	int frameWidth;
 	int frameHeight;

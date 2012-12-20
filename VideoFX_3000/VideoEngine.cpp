@@ -41,6 +41,7 @@ void VideoEngine::runVideo(){
 	setTrackbarPos("Thresh", "Video", 20);
 
 	firstCall = true;
+	
 
 	while(true){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
