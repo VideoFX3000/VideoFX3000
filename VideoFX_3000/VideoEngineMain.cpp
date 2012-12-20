@@ -12,7 +12,6 @@ int main()
 
 	if (app.openVideo(videoPath,1))
 	{
-		cout << videoWriter.isOpened() << endl;
 		app.runVideo();
 	}
 }
