@@ -5,8 +5,9 @@
 #include <iostream>
 #include <conio.h> //für kbhit()
 #include "ToolInterface.h"
-#include "LooperEffect.h"
 #include "Backgroundsubstraction.h"
+#include "LooperEffect.h"
+#include "DelayEffect.h"
 
 class VideoEngine
 {
@@ -21,10 +22,6 @@ public:
 	//Anzeige-Funktionen
 	void showVideoFrame(const cv::Mat& videoFrame);
 	void showProcessedFrame(const cv::Mat&processedFrame);
-	//Ringbuffer-Funktionen
-	void write(const cv::Mat& videoFrame);
-	cv::Mat readWithDelay(int delay);
-	void resize(int size);
 private:
 	cv::VideoCapture videoCapture;
 	int frameWidth;
@@ -38,10 +35,7 @@ private:
 	bool writerCheck;
 	bool firstCall;
 	LooperEffect loop;
-	//Ringbuffer-Funktionen
-	std::vector<cv::Mat> buffer;
-	int writeIndex;
-	int size;
+	DelayEffect delay;
 };
 
 #endif

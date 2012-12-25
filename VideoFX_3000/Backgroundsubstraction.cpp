@@ -7,16 +7,9 @@ using namespace std;
 Backgroundsubstraction::Backgroundsubstraction(void)
 	: frameNumber(0)
 {
-/*	namedWindow("Video");
-	namedWindow("Result");
-	namedWindow("First");
-	namedWindow("Gray");
-	namedWindow("Diff");
-	namedWindow("Trafo");
-*/}
+}
 
 Backgroundsubstraction::~Backgroundsubstraction(void){
-	destroyAllWindows();
 }
 
 Mat Backgroundsubstraction::process(Mat& input)
@@ -45,7 +38,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 
 		int thresh = getTrackbarPos("Thresh", "Video");
 		threshold(grayFrame, processedFrame, thresh, 255, THRESH_BINARY);
-		imshow("Diff", grayFrame);
+		//imshow("Differenz", grayFrame);
 	}
 
 	medianBlur(processedFrame, processedFrame, 3);
@@ -90,5 +83,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 		}
 
 	}
+
+	//imshow("Mask", processedFrame);
 	return processedFrame;
 }

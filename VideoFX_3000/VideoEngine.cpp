@@ -8,9 +8,6 @@ VideoEngine::VideoEngine(void)
 	, input(0)
 	, effectType(0)
 	, writerCheck(false)
-	//Buffer-Variablen
-	, size(0)
-	, writeIndex(0)
 { 
 	namedWindow("Video");
 }
@@ -28,6 +25,7 @@ bool VideoEngine::openVideo(const std::string& path, const int& effectType){
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
 		loop.initialize(frameWidth, frameHeight);
+		delay.initialize(frameWidth, frameHeight);
 		return true;
 	}
 	else {
@@ -51,13 +49,9 @@ void VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 
-		loop.processFrame(videoFrame);//HIER WEITER
-		//HIER aufruf von process(videoFrame)
-
-/*		Mat processedFrame (frameHeight, frameWidth, CV_8UC1);
-		showProcessedFrame(processedFrame);
-*/		
-
+		videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
+		//HIER später evtl. Aufruf von process(videoFrame)
+		
 		if(kbhit())
 			input = getch();
 		if(input == 'r' || writerCheck == true)
@@ -95,27 +89,4 @@ void VideoEngine::showVideoFrame(const Mat&videoFrame){
 void VideoEngine::showProcessedFrame(const Mat&processedFrame){
 	imshow("Result", processedFrame);
 
-}
-
-//-------------------------Ring Buffer
-//schreibt aktuelles Videoframe in den Buffer; erhöht den Index
-void VideoEngine::write(const cv::Mat& videoFrame){
-	buffer[writeIndex] = videoFrame;
-	writeIndex++;
-	if(writeIndex == size){
-		writeIndex = 0;
-	}
-}
-//liest Videoframe verzögert aus Buffer
-Mat VideoEngine::readWithDelay(int delay){
-	int readIndex = writeIndex - delay;
-	if( readIndex < 0){
-		readIndex += size;
-	}
-	return buffer[readIndex];
-}
-//Verändert die Größe des Buffers
-void VideoEngine::resize(int size){
-	this->size = size;
-	buffer.resize(size);
 }

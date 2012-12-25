@@ -4,11 +4,11 @@
 #include "ToolInterface.h"
 
 
-class Backgroundsubstraction: public ToolInterface //bedeutet: ToolInterface ist die Basisklasse von Backgroundsub
+class Backgroundsubstraction : public ToolInterface //bedeutet: ToolInterface ist die Basisklasse von Backgroundsub
 {
 public:
 	Backgroundsubstraction(void);
-	~Backgroundsubstraction(void);
+	virtual~Backgroundsubstraction(void);
 	virtual cv::Mat process(cv::Mat& input);
 private:
 	cv::Mat firstFrame;

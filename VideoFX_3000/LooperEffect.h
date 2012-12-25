@@ -7,7 +7,7 @@ class LooperEffect : public Effect
 {
 public:
 	LooperEffect(void);
-	~LooperEffect(void);
+	virtual ~LooperEffect(void);
 	void loopInputCheck(int input);
 	void loopVideo();
 	cv::Mat processFrame(cv::Mat& videoFrame); //Funktion dient nur zum Testen wie process in BackSub aufgerufen werden kann.
