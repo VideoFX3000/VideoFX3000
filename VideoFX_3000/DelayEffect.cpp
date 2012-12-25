@@ -40,6 +40,7 @@ void DelayEffect::initialize(int frameWidth, int frameHeight){
 	// vorübergehend Slider um die Frameanzahl einzustellen
 	createTrackbar("Frames", "Delayed", 0, delayWindow);
 	setTrackbarPos("Frames", "Delayed", numberOfDelayedFrames);
+	// vorübergehend Slider um die Fenstergröße einzustellen
 	createTrackbar("Window", "Delayed", 0, MAX_DELAY_WINDOW);
 	setTrackbarPos("Window", "Delayed", delayWindow);
 	buffer.resizeBuffer(MAX_DELAY_WINDOW); // Größe des Buffers setzen
@@ -57,6 +58,7 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des Hintergrundes
 	}
 
+	// Einstellung der gewünschten Fenstergröße
 	delayWindow = getTrackbarPos("Window", "Delayed");
 	// erst wenn der Buffer komplett gefüllt ist können daraus verzögerte Frames ausgelesen werden
 	if(frameNumber >= delayWindow)
