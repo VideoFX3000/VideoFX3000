@@ -15,7 +15,6 @@ DelayEffect::DelayEffect(void)
 	, numberOfDelayedFrames(0)
 	, frameDistance(1)
 {
-	namedWindow("Delayed");
 	setTool(new Backgroundsubstraction());// Auswahl des Tools für die Verarbeitung
 }
 
@@ -33,6 +32,7 @@ void DelayEffect::setTool(ToolInterface *tool){
 // Methode um die Framebreite und -höhe sowie die Größe des Delays und des Buffers in der Klasse
 // zuzuweisen
 void DelayEffect::initialize(int frameWidth, int frameHeight){
+	namedWindow("Delayed");
 	this->frameWidth = frameWidth;
 	this->frameHeight = frameHeight;
 	this->delayWindow = 20; // später vom Benutzer steuerbar

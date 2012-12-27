@@ -16,7 +16,7 @@ VideoEngine::~VideoEngine(void)
 {
 }
 
-bool VideoEngine::openVideo(const std::string& path, const int& effectType){
+bool VideoEngine::openVideo(const std::string& path, const char& effectType){
 	videoCapture.open(path);
 	this->effectType = effectType;
 	if (videoCapture.isOpened()){
@@ -24,8 +24,12 @@ bool VideoEngine::openVideo(const std::string& path, const int& effectType){
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
-		loop.initialize(frameWidth, frameHeight);
-		delay.initialize(frameWidth, frameHeight);
+		switch(effectType){
+		case '1': delay.initialize(frameWidth, frameHeight);
+			break;
+		case '2': loop.initialize(frameWidth, frameHeight);
+			break;
+		}		
 		return true;
 	}
 	else {
@@ -34,13 +38,11 @@ bool VideoEngine::openVideo(const std::string& path, const int& effectType){
 }
 
 void VideoEngine::runVideo(){
-
 	createTrackbar("Thresh", "Video", 0, 255);
 	setTrackbarPos("Thresh", "Video", 20);
 
 	firstCall = true;
 	
-
 	while(true){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		if (videoCapture.read(videoFrame) == false)
@@ -49,8 +51,13 @@ void VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 
-		videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
+		switch(effectType){
+		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
 		//HIER später evtl. Aufruf von process(videoFrame)
+			break;
+		case '2': //loopeffekte
+			break;
+		}
 		
 		if(kbhit())
 			input = getch();
@@ -63,7 +70,7 @@ void VideoEngine::runVideo(){
 		waitKey(30);
 	}
 }
-//schreibt aktuellen Videodatei
+//schreibt aktuelle Videodatei
 void VideoEngine::writeVideo(const Mat& videoFrame){
 	cout << "---writing" << endl;
 	if(firstCall == true){

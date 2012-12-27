@@ -3,6 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 
+//Abstrakte Klasse (=nur virtuelle Methoden), deshalb kein Konstruktor
 class ToolInterface
 {
 public:
