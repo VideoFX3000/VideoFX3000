@@ -9,6 +9,7 @@
 #include "Backgroundsubstraction.h"
 #include "LooperEffect.h"
 #include "DelayEffect.h"
+#include "MagicCapEffect.h"
 
 class VideoEngine
 {
@@ -37,6 +38,7 @@ private:
 	bool firstCall;
 	LooperEffect loop;
 	DelayEffect delay;
+	MagicCapEffect magic;
 };
 
 #endif

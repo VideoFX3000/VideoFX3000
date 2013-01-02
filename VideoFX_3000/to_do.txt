@@ -1,8 +1,37 @@
 To Do Liste:
 
-- Videobuffer, Delay
+ERL - Videobuffer, Delay
 - Geisterbilder-Effekt bauen
 - Webcam
 
 - Looper: schneller in den neuen Loop reingehen
 - Looper: Webcamfunktion
+
+- LooperEffect.h: kommentieren
+- LooperEffect.cpp: kommentieren
+- Backgroundsubstraction.h: kommentieren
+- Backgroundsubstraction.cpp: kommentieren
+
+- MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
+- MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist
+- VideoEngine.h: kommentieren (zum Schluss)
+- VideoEngine.cpp: kommentieren (zum Schluss)
+
+
+- Fragen mit Plaß klären^^
+
+Fragen an Plaß:
+- VideoRingBuffer: 
+	- wie binden wir die process()-Methode ein? Ein einfacher Aufruf beispielsweise in DelayEffect.cpp funktioniert nicht, da an die einzelnen Methoden Bedingungen geknüpft sind
+	- wie verknüpfen wir VRB mit DelayEffect am sinnvollsten, z. B. Implementation einer Methode, getInputParameters?
+- Effect:
+	- wo binden wir die Metode setTool() am Besten ein?
+- VideoEngine.h:
+	- hier evtl. Variable vom Typ ToolInterface deklarieren?
+- LooperEffect:
+	- NOCH FORMULIEREN
+- DelayEffect:
+	- ist es sinnvoll, die Verarbeitungen für ein gewisses Intervall durchzuführen, also z. B. pro Sekunde? (wie würde das bei eine FrameRate von 29.97 funktionieren?)
+	- wie realisieren wir, dass der DelayEffect immer bis zum Ende läuft (beispielsweise bricht die Wiedergabe ab, wenn das video zu Ende ist). Am Besten wäre es, wenn die verzögerten Frames zum Ende hin ausgeblendet
+	  würden, sodass das Video schließlich mit einem Frame endet.
+	- WIE FUNKTIONIERT ES, DEN ALPHAKANAL PRO VERZÖGERTES FRAME ZU VERÄNDERN? Laut skript müsste es so funktionieren (processedFrame = multiply(Source, Factor, Maske)), tut es aber nicht ;)

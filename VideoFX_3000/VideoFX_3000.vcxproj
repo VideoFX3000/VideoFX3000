@@ -79,6 +79,7 @@
     <ClCompile Include="Backgroundsubstraction.cpp" />
     <ClCompile Include="DelayEffect.cpp" />
     <ClCompile Include="LooperEffect.cpp" />
+    <ClCompile Include="MagicCapEffect.cpp" />
     <ClCompile Include="VideoEngine.cpp" />
     <ClCompile Include="VideoEngineMain.cpp" />
     <ClCompile Include="VideoRingBuffer.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="DelayEffect.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="LooperEffect.h" />
+    <ClInclude Include="MagicCapEffect.h" />
     <ClInclude Include="ToolInterface.h" />
     <ClInclude Include="VideoEngine.h" />
     <ClInclude Include="VideoRingBuffer.h" />

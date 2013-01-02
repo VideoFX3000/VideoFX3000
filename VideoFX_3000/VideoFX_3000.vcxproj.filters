@@ -33,6 +33,9 @@
     <ClCompile Include="DelayEffect.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="MagicCapEffect.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Backgroundsubstraction.h">
@@ -54,6 +57,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="DelayEffect.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicCapEffect.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

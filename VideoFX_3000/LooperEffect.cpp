@@ -28,10 +28,10 @@ void LooperEffect::loopInputCheck(int input){
 	//waitKey(30);
 }
 
-Mat LooperEffect::processFrame(cv::Mat& processedFrame){
+/*Mat LooperEffect::processFrame(cv::Mat& processedFrame){
 	processedFrame = tool->process(processedFrame);
 	return processedFrame;
-}
+}*/
 
 void LooperEffect::loopVideo(){
 
@@ -55,5 +55,5 @@ void LooperEffect::loopVideo(){
 
 
 void LooperEffect::setTool(ToolInterface *tool){
-	this->tool = tool;
+	//this->tool = tool;
 }

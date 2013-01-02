@@ -16,7 +16,7 @@ VideoEngine::~VideoEngine(void)
 {
 }
 
-bool VideoEngine::openVideo(const std::string& path, const char& effectType){
+bool VideoEngine::openVideo(const string& path, const char& effectType){
 	videoCapture.open(path);
 	this->effectType = effectType;
 	if (videoCapture.isOpened()){
@@ -24,6 +24,8 @@ bool VideoEngine::openVideo(const std::string& path, const char& effectType){
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
+		//---------vorübergehend, da Switch noch nicht funktioniert
+		magic.initialize(frameWidth, frameHeight);
 		switch(effectType){
 		case '1': delay.initialize(frameWidth, frameHeight);
 			break;
@@ -47,10 +49,10 @@ void VideoEngine::runVideo(){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		if (videoCapture.read(videoFrame) == false)
 			break;
-
 		frameNumber++;
 		showVideoFrame(videoFrame);
-
+		//---------vorübergehend, da Switch noch nicht funktioniert
+		videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
 		switch(effectType){
 		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
 		//HIER später evtl. Aufruf von process(videoFrame)

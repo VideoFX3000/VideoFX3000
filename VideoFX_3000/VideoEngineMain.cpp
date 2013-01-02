@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-	VideoEngine app;
+	/*VideoEngine app;
 	//Pfade für Videodatei und Webcam
 	const string videoPath = "C:/Users/Public/Videos/Micro-dance_2_.AVI";
 	const string camPath = "0";
@@ -37,7 +37,7 @@ int main()
 				}
 				break;
 			case '2': cout << "-----Delay und Webcam" << endl;
-				if (app.openVideo(camPath,2))
+				if (app.openVideo(camPath,1))
 				{
 					app.runVideo();
 				}
@@ -73,15 +73,14 @@ int main()
 	waitKey();
 
 	//ALTER STAND
-	/*
+	*/
 	const string videoPath = "C:/Users/Public/Videos/Micro-dance_2_.AVI";
 	//const string videoPath = "C:\\Users\\Public\\Videos\\Micro-dance.AVI";
 
 	VideoEngine app;
 
-	if (app.openVideo(videoPath,1))
+	if (app.openVideo(videoPath,2))
 	{
 	app.runVideo();
 	}
-	*/
 }

@@ -6,10 +6,18 @@
 #include <iostream>
 #include <conio.h> //für kbhit()
 
+// Die Klasse "Effect" (Abstrakte Klasse (=nur virtuelle Methoden), deshalb kein Konstruktor) dient als Schnittstelle zwischen
+// der Klasse "ToolInterface" und den einzelnen Effekten, z. B. wird für den Effekt "DelayEffect" das Tool "Backgroundsubstraction"
+// verwendet. Da es sich um eine abstrakte Klasse handelt wird keine weitere .cpp-Datei für die Methodenimplementation benötigt.
+
+// Effect ist Basisklasse aller Effekte.
+
 class Effect
 {
 public:
 	virtual ~Effect(void){}
+	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird. Dort wird das
+	// jeweilige Tool, das vom Effekt verwendet werden soll gesetzt.
 	virtual void setTool(ToolInterface* tool) = 0; //ÜBERLEGUNG: diese Funktion in VideoEngine.h eingliedern und auch aus den Unterklassen der Effekte entfernen
 };
 
