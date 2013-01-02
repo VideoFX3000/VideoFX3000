@@ -28,6 +28,8 @@ Fragen an Plaﬂ:
 	- wo binden wir die Metode setTool() am Besten ein?
 - VideoEngine.h:
 	- hier evtl. Variable vom Typ ToolInterface deklarieren?
+- VideoEngine.cpp:
+	- wie bekommen wir die Switch-Anweisungen funktionsf‰hig
 - LooperEffect:
 	- NOCH FORMULIEREN
 - DelayEffect:
