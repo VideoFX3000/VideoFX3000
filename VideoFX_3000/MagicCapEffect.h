@@ -22,6 +22,7 @@ private:
 	int capIntensityR;
 	int capIntensityG;
 	int capIntensityB;
+	float capIntensityAlpha;
 };
 
 #endif

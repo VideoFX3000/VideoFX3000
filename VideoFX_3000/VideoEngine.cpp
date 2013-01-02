@@ -52,7 +52,7 @@ void VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 		//---------vorübergehend, da Switch noch nicht funktioniert
-		videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
+		videoFrame = magic.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
 		switch(effectType){
 		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
 		//HIER später evtl. Aufruf von process(videoFrame)
