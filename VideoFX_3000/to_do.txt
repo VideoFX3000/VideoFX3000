@@ -1,16 +1,25 @@
 To Do Liste:
 
 ERL - Videobuffer, Delay
-- Geisterbilder-Effekt bauen
-- Webcam
+ERL - Geisterbilder-Effekt baue
+(- Webcam)
 
 - Looper: schneller in den neuen Loop reingehen
-- Looper: Webcamfunktion
+(- Looper: Webcamfunktion)
 
 - LooperEffect.h: kommentieren
 - LooperEffect.cpp: kommentieren
 - Backgroundsubstraction.h: kommentieren
 - Backgroundsubstraction.cpp: kommentieren
+
+- VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
+
+WICHTIG
+- VideoEngine.cpp: Array statt VideoWriterObjekt
+- DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
+- MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
+
+- DOKUMENTATION SCHREIBEN
 
 - MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
 - MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist

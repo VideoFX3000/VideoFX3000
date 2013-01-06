@@ -39,18 +39,17 @@ void LooperEffect::loopVideo(){
 	char abfrage = '0';
 	VideoCapture loopedVideo;
 	loopedVideo.open("Video.avi");
-	cout << loopedVideo.isOpened() << endl;// 1: das Video kann nicht geöffnet werden
-	do{
+	cout << loopedVideo.isOpened() << endl;
+	while(abfrage != 'q'){
 		if(kbhit()){
 			abfrage = getch();
-			//input = abfrage;//ÜBERLEGUNG: den Wert müssten wir an die VideoEngine-Klasse zurückgeben (vermutlich zusätzliche Funktion "char getInput()";
 		}
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		if (loopedVideo.read(videoFrame) == false)
 			break;
 		imshow("Video", videoFrame);
 		waitKey(30);
-	}while(abfrage != 'q');
+	}
 }
 
 

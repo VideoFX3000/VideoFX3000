@@ -75,12 +75,12 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 
 
 	//----------BEGINN VARIANTE 1------------
-
+/*
 		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame);
 		binaryMask = tool->process(currentFrame);
 		processedFrame.copyTo(copyOfFirstFrame, binaryMask);
 		imshow("Cap-Intensity", copyOfFirstFrame);
-
+*/
 	//---------ENDE VARIANTE 1------------
 
 
@@ -89,7 +89,7 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 
 
 	//---------BEGINN VARIANTE 2---------------
-/*
+
 		// Kanäle, die notwendig sind um Frames nach und nach verblassen zu lassen
 		//float alpha = 0.025; // Alpha-Kanal
 		float beta; // Beta-Kanal
@@ -102,7 +102,7 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 		add(currentFrame, copyOfFirstFrame, currentFrame); // beide Frames werden nun addiert
 		currentFrame.copyTo(processedFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
 		imshow("Cap-Intensity", processedFrame);
-*/
+
 	//-------ENEDE VARIANTE 2-------------
 	}
 

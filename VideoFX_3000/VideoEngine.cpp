@@ -9,7 +9,6 @@ VideoEngine::VideoEngine(void)
 	, effectType(0)
 	, writerCheck(false)
 { 
-	namedWindow("Video");
 }
 
 VideoEngine::~VideoEngine(void)
@@ -24,8 +23,22 @@ bool VideoEngine::openVideo(const string& path, const char& effectType){
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
-		//---------vorübergehend, da Switch noch nicht funktioniert
-		magic.initialize(frameWidth, frameHeight);
+		
+		namedWindow("Video");
+		if (effectType == '1'){
+			delay.initialize(frameWidth, frameHeight);
+			return true;
+		}
+		else if (effectType == '2'){
+			loop.initialize(frameWidth, frameHeight);
+			return true;
+		}
+		else if (effectType == '3'){
+			magic.initialize(frameWidth, frameHeight);
+			return true;
+		}
+
+
 		switch(effectType){
 		case '1': delay.initialize(frameWidth, frameHeight);
 			break;
@@ -45,21 +58,12 @@ void VideoEngine::runVideo(){
 
 	firstCall = true;
 	
-	while(true){
+	while(true && input != 'c'){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		if (videoCapture.read(videoFrame) == false)
 			break;
 		frameNumber++;
 		showVideoFrame(videoFrame);
-		//---------vorübergehend, da Switch noch nicht funktioniert
-		videoFrame = magic.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
-		switch(effectType){
-		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
-		//HIER später evtl. Aufruf von process(videoFrame)
-			break;
-		case '2': //loopeffekte
-			break;
-		}
 		
 		if(kbhit())
 			input = getch();
@@ -68,9 +72,26 @@ void VideoEngine::runVideo(){
 		if(input == 's')
 			stopVideo(videoFrame);
 			
-		loop.loopInputCheck(input);
-		waitKey(30);
+		if (effectType == '1'){
+			videoFrame = delay.processFrame(videoFrame);
+		}
+		else if (effectType == '2'){
+			loop.loopInputCheck(input);
+		}
+		else if (effectType == '3'){
+			videoFrame = magic.processFrame(videoFrame);
+		}
+/*
+		switch(effectType){
+		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
+		//HIER später evtl. Aufruf von process(videoFrame)
+			break;
+		case '2': //loopeffekte
+			break;
+		}
+*/		waitKey(30);
 	}
+	input = '0';
 }
 //schreibt aktuelle Videodatei
 void VideoEngine::writeVideo(const Mat& videoFrame){
