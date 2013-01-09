@@ -2,10 +2,10 @@ To Do Liste:
 
 ERL - Videobuffer, Delay
 ERL - Geisterbilder-Effekt baue
-(- Webcam)
+ERL (- Webcam)
 
 ERL - Looper: schneller in den neuen Loop reingehen
-(- Looper: Webcamfunktion)
+ERL (- Looper: Webcamfunktion)
 
 - LooperEffect.h: kommentieren
 - LooperEffect.cpp: kommentieren
@@ -17,6 +17,9 @@ ERL - Looper: schneller in den neuen Loop reingehen
 WICHTIG
 - Aufnahmefunktion wieder einbauen
 - Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
+- Doku
+- Strukturdiagramm
+- Präsentation
 ERL - VideoEngine.cpp: Array statt VideoWriterObjekt
 ERL - DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
 ERL - MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
@@ -44,6 +47,6 @@ ERL - VideoEngine.cpp:
 ERL - LooperEffect:
 		- wie bekommen wir es hin, dass der Looper sofort nach Drücken der Taste "q" beendet wird, ABER der looper so wie bisher funktioniert (also anschließend weitere Loops aufgezeichnet werden können)
 - DelayEffect:
-	- ist es sinnvoll, die Verarbeitungen für ein gewisses Intervall durchzuführen, also z. B. pro Sekunde? (wie würde das bei eine FrameRate von 29.97 funktionieren?)
+ERL	- ist es sinnvoll, die Verarbeitungen für ein gewisses Intervall durchzuführen, also z. B. pro Sekunde? (wie würde das bei eine FrameRate von 29.97 funktionieren?)
 	- wie realisieren wir, dass der DelayEffect immer bis zum Ende läuft (beispielsweise bricht die Wiedergabe ab, wenn das video zu Ende ist). Am Besten wäre es, wenn die verzögerten Frames zum Ende hin ausgeblendet
 	  würden, sodass das Video schließlich mit einem Frame endet.
