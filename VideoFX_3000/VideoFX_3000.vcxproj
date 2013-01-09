@@ -82,6 +82,7 @@
     <ClCompile Include="HighPass.cpp" />
     <ClCompile Include="LooperEffect.cpp" />
     <ClCompile Include="MagicCapEffect.cpp" />
+    <ClCompile Include="TransparencyEffect.cpp" />
     <ClCompile Include="VideoEngine.cpp" />
     <ClCompile Include="VideoEngineMain.cpp" />
     <ClCompile Include="VideoRingBuffer.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="LooperEffect.h" />
     <ClInclude Include="MagicCapEffect.h" />
     <ClInclude Include="ToolInterface.h" />
+    <ClInclude Include="TransparencyEffect.h" />
     <ClInclude Include="VideoEngine.h" />
     <ClInclude Include="VideoRingBuffer.h" />
   </ItemGroup>

@@ -42,6 +42,9 @@
     <ClCompile Include="HighPass.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="TransparencyEffect.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Backgroundsubstraction.h">
@@ -72,6 +75,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="HighPass.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparencyEffect.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

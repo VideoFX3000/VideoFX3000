@@ -5,7 +5,11 @@ using namespace std;
 using namespace cv;
 
 //---------ACHTUNG: teilweise aus DelayEffect kopiert und einige Kommentare noch nicht angepasst
-
+const string window_MagicCapEffect = "Tarnkappen-Effekt";
+const string trackbar_capIntensityR = "R";
+const string trackbar_capIntensityG = "G";
+const string trackbar_capIntensityB = "B";
+//const string trackbar_capIntensityRGB = "R+G+B";
 
 MagicCapEffect::MagicCapEffect(void)
 	// Initialisierung der Member-Variablen
@@ -15,7 +19,7 @@ MagicCapEffect::MagicCapEffect(void)
 	, capIntensityR(4)
 	, capIntensityG(4)
 	, capIntensityB(4)
-	, capIntensityAlpha(2.)
+//	, capIntensityRGB(4)
 {
 	setTool(new Backgroundsubstraction());// Auswahl des Tools für die Verarbeitung
 }
@@ -31,23 +35,22 @@ void MagicCapEffect::setTool(ToolInterface *tool){
 	this->tool = tool;
 }
 
-// Methode um die Framebreite und -höhe sowie die Größe des Delays und des Buffers in der Klasse
-// zuzuweisen
+// Methode um die Framebreite und -höhe der Klasse zuzuweisen und die Trackbars einzufügen
 void MagicCapEffect::initialize(int frameWidth, int frameHeight){
-	namedWindow("Cap-Intensity");
+	namedWindow(window_MagicCapEffect);
 	this->frameWidth = frameWidth;
 	this->frameHeight = frameHeight;
 
 	// Trackbars zum Testen
-	createTrackbar("R", "Cap-Intensity", 0, 255);
-	setTrackbarPos("R", "Cap-Intensity", capIntensityR);
-	createTrackbar("G", "Cap-Intensity", 0, 255);
-	setTrackbarPos("G", "Cap-Intensity", capIntensityG);
-	createTrackbar("B", "Cap-Intensity", 0, 255);
-	setTrackbarPos("B", "Cap-Intensity", capIntensityB);
-	createTrackbar("Alpha", "Cap-Intensity", 0, 100);
-	setTrackbarPos("Alpha", "Cap-Intensity", capIntensityAlpha);
-
+	createTrackbar(trackbar_capIntensityR, window_MagicCapEffect, 0, 255);
+	setTrackbarPos(trackbar_capIntensityR, window_MagicCapEffect, capIntensityR);
+	createTrackbar(trackbar_capIntensityG, window_MagicCapEffect, 0, 255);
+	setTrackbarPos(trackbar_capIntensityG, window_MagicCapEffect, capIntensityG);
+	createTrackbar(trackbar_capIntensityB, window_MagicCapEffect, 0, 255);
+	setTrackbarPos(trackbar_capIntensityB, window_MagicCapEffect, capIntensityB);
+/*	createTrackbar(trackbar_capIntensityRGB, window_MagicCapEffect, 0, 255);
+	setTrackbarPos(trackbar_capIntensityRGB, window_MagicCapEffect, capIntensityRGB);
+*/
 }
 // Methode, in der die Verarbeitungen durchgeführt werden
 Mat MagicCapEffect::processFrame(Mat currentFrame){
@@ -62,49 +65,20 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 	}
 
 	// Trackbars zum Testen
-	capIntensityR = getTrackbarPos("R", "Cap-Intensity");
-	capIntensityG = getTrackbarPos("G", "Cap-Intensity");
-	capIntensityB = getTrackbarPos("B", "Cap-Intensity");
-	capIntensityAlpha = getTrackbarPos("Alpha", "Cap-Intensity")/100.;
+	capIntensityR = getTrackbarPos(trackbar_capIntensityR, window_MagicCapEffect);
+	capIntensityG = getTrackbarPos(trackbar_capIntensityG, window_MagicCapEffect);
+	capIntensityB = getTrackbarPos(trackbar_capIntensityB, window_MagicCapEffect);
+	//capIntensityRGB = getTrackbarPos(trackbar_capIntensityRGB, window_MagicCapEffect);
+
 
 	if (frameNumber > 2){
 		firstFrame.copyTo(copyOfFirstFrame);
- 
-//------VARIANTE 1 (ADDITION EINES SKALARS ANSTELLE DER BEWEGUNG)----------
-
-
-
-	//----------BEGINN VARIANTE 1------------
 
 		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame);
-		binaryMask = tool->process(currentFrame);
-		processedFrame.copyTo(copyOfFirstFrame, binaryMask);
-		imshow("Cap-Intensity", copyOfFirstFrame);
-
-	//---------ENDE VARIANTE 1------------
-
-
-//-----VARIANTE 2 (MIT ALPHAKANAL)------------
-
-
-
-	//---------BEGINN VARIANTE 2---------------
-/*
-		// Kanäle, die notwendig sind um Frames nach und nach verblassen zu lassen
-		//float alpha = 0.025; // Alpha-Kanal
-		float beta; // Beta-Kanal
-
-		copyOfFirstFrame.copyTo(processedFrame);
-		beta = 1-capIntensityAlpha;
 		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des original Bildes (currentFrame)
-		multiply(currentFrame, capIntensityAlpha, currentFrame); // Blasses Vordergrundbild
-		multiply(copyOfFirstFrame, beta, copyOfFirstFrame); // die Berechnung in currentFrame muss in copyOfFirstFrame gegensätzlich erfolgen damit der Frame korrekt aussieht
-		add(currentFrame, copyOfFirstFrame, currentFrame); // beide Frames werden nun addiert
-		currentFrame.copyTo(processedFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
-		imshow("Cap-Intensity", processedFrame);
-
-	//-------ENEDE VARIANTE 2-------------
-*/	}
+		processedFrame.copyTo(copyOfFirstFrame, binaryMask);// kopiert einen bestimmten Bereich des verarbeiteten Frames in das erste Frame
+		imshow(window_MagicCapEffect, copyOfFirstFrame);
+	}
 
 	return currentFrame;
 }
