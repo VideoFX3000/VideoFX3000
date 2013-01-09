@@ -80,6 +80,7 @@
     <ClCompile Include="DelayEffect.cpp" />
     <ClCompile Include="GhostEffect.cpp" />
     <ClCompile Include="HighPass.cpp" />
+    <ClCompile Include="HighPassEffect.cpp" />
     <ClCompile Include="LooperEffect.cpp" />
     <ClCompile Include="MagicCapEffect.cpp" />
     <ClCompile Include="TransparencyEffect.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="Effect.h" />
     <ClInclude Include="GhostEffect.h" />
     <ClInclude Include="HighPass.h" />
+    <ClInclude Include="HighPassEffect.h" />
     <ClInclude Include="LooperEffect.h" />
     <ClInclude Include="MagicCapEffect.h" />
     <ClInclude Include="ToolInterface.h" />

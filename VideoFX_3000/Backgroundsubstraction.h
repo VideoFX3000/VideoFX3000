@@ -9,7 +9,7 @@ class Backgroundsubstraction : public ToolInterface //bedeutet: ToolInterface is
 public:
 	Backgroundsubstraction(void);
 	virtual~Backgroundsubstraction(void);
-	virtual cv::Mat process(cv::Mat& input);
+	virtual cv::Mat process(cv::Mat& input, int delta);
 private:
 	cv::Mat firstFrame;
 	int frameNumber;

@@ -16,7 +16,7 @@ Backgroundsubstraction::~Backgroundsubstraction(void){
 // diese Funktion erkennt die größte sich bewegende Fläche
 // die Ausgabe erfolgt im Mat-Objekt "processedFrame"
 // dabei sind sich bewegende Pixel weiß gefärbt und alle restlichen Pixel schwarz
-Mat Backgroundsubstraction::process(Mat& input)
+Mat Backgroundsubstraction::process(Mat& input, int delta)
 {
 	Mat processedFrame;
 	Mat grayFrame (input.rows, input.cols, CV_8UC1);

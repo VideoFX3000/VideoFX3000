@@ -5,7 +5,11 @@ using namespace std;
 using namespace cv;
 
 //---------ACHTUNG: teilweise aus DelayEffect kopiert und einige Kommentare noch nicht angepasst
+<<<<<<< HEAD
+const string window_MagicCapEffect = "Tarnkappen-Effekt";
+=======
 const string window_MagicCapEffect = "Tarnkappeneffekt";
+>>>>>>> b35946ea9cff1caae72585782aa06b953f04dc3d
 const string trackbar_capIntensityR = "R";
 const string trackbar_capIntensityG = "G";
 const string trackbar_capIntensityB = "B";
@@ -75,7 +79,11 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 		firstFrame.copyTo(copyOfFirstFrame);
 
 		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame);
+<<<<<<< HEAD
+		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des original Bildes (currentFrame)
+=======
 		binaryMask = tool->process(currentFrame, 0); // erzeugt Binärmaske des original Bildes (currentFrame)
+>>>>>>> b35946ea9cff1caae72585782aa06b953f04dc3d
 		processedFrame.copyTo(copyOfFirstFrame, binaryMask);// kopiert einen bestimmten Bereich des verarbeiteten Frames in das erste Frame
 		imshow(window_MagicCapEffect, copyOfFirstFrame);
 	}

@@ -5,7 +5,11 @@ using namespace std;
 using namespace cv;
 
 //---------ACHTUNG: teilweise aus DelayEffect kopiert und einige Kommentare noch nicht angepasst
+<<<<<<< HEAD
+const string window_TransparencyEffect = "Transparenz-Effekt";
+=======
 const string window_TransparencyEffect = "Transparenzeffekt";
+>>>>>>> b35946ea9cff1caae72585782aa06b953f04dc3d
 const string trackbar_alpha = "Alpha";
 
 TransparencyEffect::TransparencyEffect(void)
@@ -62,7 +66,11 @@ Mat TransparencyEffect::processFrame(Mat currentFrame){
 		copyOfFirstFrame.copyTo(processedFrame);
 		beta = 1-alpha;
 
+<<<<<<< HEAD
+		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des original Bildes (currentFrame)
+=======
 		binaryMask = tool->process(currentFrame, 0); // erzeugt Binärmaske des original Bildes (currentFrame)
+>>>>>>> b35946ea9cff1caae72585782aa06b953f04dc3d
 		multiply(currentFrame, alpha, currentFrame); // Blasses Vordergrundbild
 		multiply(copyOfFirstFrame, beta, copyOfFirstFrame); // die Berechnung in currentFrame muss in copyOfFirstFrame gegensätzlich erfolgen damit der Frame korrekt aussieht
 		add(currentFrame, copyOfFirstFrame, currentFrame); // beide Frames werden nun addiert

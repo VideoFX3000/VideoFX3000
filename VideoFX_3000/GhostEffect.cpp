@@ -54,7 +54,7 @@ Mat GhostEffect::processFrame(Mat currentFrame){
 
 	// Zum Abfangen des ersten Frames (Hintergrund) notwendiger Aufruf von BackSub
 	if (frameNumber <= 2){
-		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des Hintergrundes (Dient zur Synchronisation von frameNumber)
+		binaryMask = tool->process(currentFrame, 0); // erzeugt Binärmaske des Hintergrundes (Dient zur Synchronisation von frameNumber)
 	}
 
 	//----------Konfiguration der Regler, damit nur sinnvolle Werte eingestellt werden können---------------
@@ -98,7 +98,7 @@ Mat GhostEffect::processFrame(Mat currentFrame){
 				add(processedFrame, currentFrame, currentFrame); // beide Frames werden nun addiert	
 				
 			}
-			binaryMask = tool->process(originalFrame); // erzeugt Binärmaske des original Bildes (currentFrame)
+			binaryMask = tool->process(originalFrame, 0); // erzeugt Binärmaske des original Bildes (currentFrame)
 			originalFrame.copyTo(currentFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
 		}
 		

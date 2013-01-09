@@ -16,7 +16,7 @@ public:
 	virtual ~ToolInterface(void){};
 	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird, dort werden
 	// jeweils die anderen Member-Funktionen aufgerufen
-	virtual cv::Mat process(cv::Mat& input) = 0;
+	virtual cv::Mat process(cv::Mat& input, int delta) = 0;
 };
 
 #endif
