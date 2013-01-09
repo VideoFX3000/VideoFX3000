@@ -21,7 +21,12 @@ void VideoEngine::setEffect(Effect *effect){
 }
 
 bool VideoEngine::openVideo(const string& path){
+	if (path == "0"){
+		videoCapture.open(0);
+	}
+	else{
 	videoCapture.open(path);
+	}
 
 	if (videoCapture.isOpened()){
 		frameNumber = 0;
@@ -43,7 +48,7 @@ bool VideoEngine::openVideo(const string& path){
 char VideoEngine::runVideo(){
 	createTrackbar("Thresh", "Video", 0, 255);
 	setTrackbarPos("Thresh", "Video", 20);
-
+	input = '0';
 	bool stopEffect = false;
 
 	while(true && input != 'c' || stopEffect == false){
@@ -71,8 +76,10 @@ char VideoEngine::runVideo(){
 			input = 'q';
 		}
 
-		if(input == 'c')
+		if(input == 'c'){
 			stopEffect = true;
+			videoCapture.release();
+		}
 
 		waitKey(30);
 	}

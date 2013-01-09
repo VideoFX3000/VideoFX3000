@@ -15,9 +15,6 @@ int main()
 
 	//-----Konsolenausgabe
 	char inputPrg;
-	char inputReturn;
-
-	//char inputSrc;
 
 	do{
 		system("cls");
@@ -38,7 +35,7 @@ int main()
 			app.setEffect(delay);
 			if (app.openVideo(videoPath))
 			{
-				app.runVideo();
+				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete delay;
 			}
@@ -50,7 +47,7 @@ int main()
 			app.setEffect(ghost);
 			if (app.openVideo(videoPath))
 			{
-				app.runVideo();
+				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete ghost;
 			}
@@ -65,9 +62,9 @@ int main()
 
 			loop = new LooperEffect();
 			app.setEffect(loop);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(camPath))
 			{
-				app.runVideo();
+				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete loop;
 			}
@@ -78,10 +75,9 @@ int main()
 
 			magic = new MagicCapEffect();
 			app.setEffect(magic);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(camPath))
 			{
-				inputReturn = app.runVideo();
-				inputPrg = inputReturn;
+				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete magic;
 			}

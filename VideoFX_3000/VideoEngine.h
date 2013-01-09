@@ -35,7 +35,7 @@ private:
 	int frameHeight;
 	int frameNumber;
 	float frameRate;
-	int input;
+	char input;
 	cv::VideoWriter videoWriter;
 	//ToolInterface* tool; //wird momentan erst in LooperEffect.h gebraucht
 	bool writerCheck;
