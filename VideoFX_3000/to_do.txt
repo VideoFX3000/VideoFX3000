@@ -15,6 +15,8 @@ ERL - Looper: schneller in den neuen Loop reingehen
 - VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
 
 WICHTIG
+- Aufnahmefunktion wieder einbauen
+- Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
 ERL - VideoEngine.cpp: Array statt VideoWriterObjekt
 ERL - DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
 ERL - MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen

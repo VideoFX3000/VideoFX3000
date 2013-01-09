@@ -5,6 +5,8 @@ using namespace cv;
 
 HighPass::HighPass(void)
 	// Initialisierung der Member-Variablen
+	: delta(0)
+	
 {
 }
 
@@ -13,13 +15,13 @@ HighPass::~HighPass(void)
 {
 }
 
-Mat HighPass::process(cv::Mat& input){
+Mat HighPass::process(cv::Mat& input, int delta){
+	this->delta = delta;
 	Mat src, src_gray;
 	Mat grad;
-	char* window_name = "Sobel Demo - Simple Edge Detector";
+	char* window_name = "Hochpass";
 
 	int scale = 1;
-	int delta = 0;
 	int ddepth = CV_16S;
 	int c;
 
@@ -44,10 +46,6 @@ Mat HighPass::process(cv::Mat& input){
 
 		/// Beide Gradienten zusammenführen
 		addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
-
-		//Mat grad_bunt;
-		//cvtColor( grad, grad_bunt, CV_GRAY2RGB);
-		//imshow( window_name, grad_bunt );
 
 		waitKey(30);
 		return grad;

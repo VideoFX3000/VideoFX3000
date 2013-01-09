@@ -57,7 +57,7 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 
 	// Zum Abfangen des ersten Frames (Hintergrund) notwendiger Aufruf von BackSub
 	if (frameNumber <= 2){
-		binaryMask = tool->process(currentFrame); // erzeugt Binärmaske des Hintergrundes (Dient zur Synchronisation von frameNumber)
+		binaryMask = tool->process(currentFrame, 0); // erzeugt Binärmaske des Hintergrundes (Dient zur Synchronisation von frameNumber)
 	}
 
 	//----------Konfiguration der Regler, damit nur sinnvolle Werte eingestellt werden können---------------
@@ -85,7 +85,7 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 			for(int i = 0; i < delayWindow; i+=frameDistance){
 				Mat processedFrame;
 				buffer.readWithDelay(delayWindow-i).copyTo(processedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame
-				binaryMask = tool->process(processedFrame); // erzeugt Binärmaske des verzögert ausgelesenen Frames
+				binaryMask = tool->process(processedFrame, 0); // erzeugt Binärmaske des verzögert ausgelesenen Frames
 				processedFrame.copyTo(currentFrame, binaryMask); // kopiert bestimmten Bereich des verzögerten Frames in das aktuelle Frame
 			}
 		}

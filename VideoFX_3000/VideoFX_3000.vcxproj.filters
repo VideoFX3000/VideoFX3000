@@ -21,9 +21,6 @@
     <ClCompile Include="VideoEngine.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="VideoEngineMain.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="LooperEffect.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -40,6 +37,15 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="HighPass.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="HighPassEffect.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparencyEffect.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoEngineMain.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +78,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="HighPass.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HighPassEffect.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparencyEffect.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,13 +1,13 @@
-#ifndef MAGICCAPEFFECT_H
-#define MAGICCAPEFFECT_H
+#ifndef TRANSPARENCYEFFECT_H
+#define TRANSPARENCYEFFECT_H
 
 #include "Effect.h"
 
-class MagicCapEffect : public Effect
+class TransparencyEffect :	public Effect
 {
 public:
-	MagicCapEffect(void);
-	virtual ~MagicCapEffect(void);
+	TransparencyEffect(void);
+	virtual ~TransparencyEffect(void);
 	virtual void setTool(ToolInterface *tool);
 	virtual void initialize(int frameWidth, int frameHeight);
 	virtual cv::Mat processFrame(cv::Mat input);
@@ -16,13 +16,11 @@ private:
 	int frameHeight;
 	// Zählvariable, die hochgezählt wird
 	int frameNumber;
+	// Alpha-Kanal
+	float alpha;
 	// Pointer vom Typ ToolInterface
 	ToolInterface *tool;
 	cv::Mat firstFrame;
-	int capIntensityR;
-	int capIntensityG;
-	int capIntensityB;
-	int capIntensityRGB;
 };
 
 #endif

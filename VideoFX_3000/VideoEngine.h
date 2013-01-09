@@ -12,6 +12,8 @@
 #include "DelayEffect.h"
 #include "MagicCapEffect.h"
 #include "GhostEffect.h"
+#include "HighPassEffect.h"
+#include "TransparencyEffect.h"
 
 class VideoEngine
 {
@@ -40,11 +42,7 @@ private:
 	//ToolInterface* tool; //wird momentan erst in LooperEffect.h gebraucht
 	bool writerCheck;
 	Effect *effect;
-/*	LooperEffect loop;
-	DelayEffect delay;
-	MagicCapEffect magic;
-	GhostEffect ghost;
-*/	int delayTime;
+	int delayTime;
 	int bufferSize;
 	VideoRingBuffer bufferLooper;
 };

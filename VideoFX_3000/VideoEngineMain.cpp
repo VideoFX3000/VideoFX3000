@@ -12,6 +12,8 @@ int main()
 	DelayEffect *delay;
 	LooperEffect *loop;
 	MagicCapEffect *magic;
+	HighPassEffect *high;
+	TransparencyEffect *transparency;
 
 	//-----Konsolenausgabe
 	char inputPrg;
@@ -23,13 +25,15 @@ int main()
 		cout << "Delay: '1 + Enter' druecken" << endl;
 		cout << "Ghost: '2 + Enter' druecken" << endl;
 		cout << "Looper: '3 + Enter' druecken" << endl;
-		cout << "Tarnkappen: '4 + Enter' druecken" << endl;
+		cout << "Tarnkappe: '4 + Enter' druecken" << endl;
+		cout << "Hochpass: '5 + Enter' druecken" << endl;
+		cout << "Transparenz: '6 + Enter' druecken" << endl;
 
 		cin >> inputPrg;
 
 		switch(inputPrg){
 		case '1':	cout << "-----Delay" << endl;
-			cout << "Effekt Abbrechen: 'c + Enter' druecken" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			delay = new DelayEffect();
 			app.setEffect(delay);
@@ -41,7 +45,7 @@ int main()
 			}
 			break;
 		case '2':	cout << "-----Ghost" << endl;
-			cout << "Effekt Abbrechen: 'c + Enter' druecken" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			ghost = new GhostEffect();
 			app.setEffect(ghost);
@@ -54,11 +58,11 @@ int main()
 			break;
 
 		case '3':	cout << "-----Loop" << endl;
-			cout << "Aufzeichnen: 'r' drücken" << endl;
-			cout << "Aufzeichnung stoppen: 's' drücken" << endl;
-			cout << "Aufzeichnung loopen: 'l' drücken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' drücken" << endl;
-			cout << "Effekt Abbrechen: 'c + Enter' druecken" << endl;
+			cout << "Aufzeichnen: 'r' druecken" << endl;
+			cout << "Aufzeichnung stoppen: 's' druecken" << endl;
+			cout << "Aufzeichnung loopen: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			loop = new LooperEffect();
 			app.setEffect(loop);
@@ -71,7 +75,7 @@ int main()
 			break;
 
 		case '4':	cout << "-----Tarnkappeneffekt" << endl;
-			cout << "Effekt Abbrechen: 'c + Enter' druecken" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			magic = new MagicCapEffect();
 			app.setEffect(magic);
@@ -82,7 +86,28 @@ int main()
 				delete magic;
 			}
 			break;
+		case '5':	cout << "-----Hochpass" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
+			high = new HighPassEffect();
+			app.setEffect(high);
+			if (app.openVideo(videoPath))
+			{
+				inputPrg = app.runVideo();
+				destroyAllWindows();
+			}
+			break;
+		case '6':	cout << "-----Transparenzeffekt" << endl;
+			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+
+			transparency = new TransparencyEffect();
+			app.setEffect(transparency);
+			if (app.openVideo(videoPath))
+			{
+				inputPrg = app.runVideo();
+				destroyAllWindows();
+			}
+			break;
 		default: cout << "Fehler: Ungueltige Eingabe!" << endl;
 			break;
 		}
@@ -94,6 +119,9 @@ int main()
 	}while(inputPrg == 'c');
 
 	waitKey(0);
+	
+
+
 
 	//ALTER STAND
 	/*
