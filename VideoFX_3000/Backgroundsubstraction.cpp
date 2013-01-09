@@ -5,6 +5,7 @@ using namespace cv;
 using namespace std;
 
 Backgroundsubstraction::Backgroundsubstraction(void)
+	// Initialisierung der Member-Variablen
 	: frameNumber(0)
 {
 }
@@ -12,6 +13,9 @@ Backgroundsubstraction::Backgroundsubstraction(void)
 Backgroundsubstraction::~Backgroundsubstraction(void){
 }
 
+// diese Funktion erkennt die größte sich bewegende Fläche
+// die Ausgabe erfolgt im Mat-Objekt "processedFrame"
+// dabei sind sich bewegende Pixel weiß gefärbt und alle restlichen Pixel schwarz
 Mat Backgroundsubstraction::process(Mat& input)
 {
 	Mat processedFrame;
@@ -22,6 +26,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 		
 	grayFrame.copyTo(originalGray);
 	
+	//kopiert nicht das erste Frame, falls Kamera Zeit zum Starten benötigt
 	frameNumber++;
 	if (frameNumber == 2/*% 5 == 0*/)
 	{
@@ -34,6 +39,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 	}
 	else
 	{
+		//Berechnet Unterschied von grayFrame und firstFrame; hier: Unterschied = Bewegung
 		absdiff(grayFrame, firstFrame, grayFrame);
 
 		int thresh = getTrackbarPos("Thresh", "Video");
@@ -41,23 +47,22 @@ Mat Backgroundsubstraction::process(Mat& input)
 		//imshow("Differenz", grayFrame);
 	}
 
-	medianBlur(processedFrame, processedFrame, 3);
+	medianBlur(processedFrame, processedFrame, 3);	//verhindert Pixellöcher
 	// Opening (entfernt Rauschen im Hintergrund / schließt Löcher im Hintergrund) --> erode, dilate
 	// Closing (schließt Löcher im Vordergrund) --> dilate, erode
-//	erode(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
 	dilate(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
 	erode(processedFrame, processedFrame, Mat(3, 3, CV_8UC1));
 
+	//findet Flächen im Binärbild und schreibt Größe der Fläche in Array contours[]
 	Mat copyOfFrame;
-
 	vector<vector<Point> > contours;
 	processedFrame.copyTo(copyOfFrame);
 	findContours(copyOfFrame, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
 	
+	//findet die größte Fläche im Array contours[]
 	int area;
 	int maxArea = 0;
 	int maxAreaIndex = 0;
-
 	for(int indexOfRegion = 0; indexOfRegion < contours.size(); indexOfRegion++)
 	{
 		vector<Point> contour = contours[indexOfRegion];
@@ -68,9 +73,9 @@ Mat Backgroundsubstraction::process(Mat& input)
 			maxArea = area;
 			maxAreaIndex = indexOfRegion;
 		}
-
 	}
 
+	// färbt alle kleineren Flächen als die größte schwarz; die größte wird innerhalb der Kontur weiß gefärbt
 	for(int indexOfRegion = 0; indexOfRegion < contours.size(); indexOfRegion++)
 	{
 		if(indexOfRegion == maxAreaIndex)
@@ -81,9 +86,7 @@ Mat Backgroundsubstraction::process(Mat& input)
 		{
 			drawContours(processedFrame, contours, indexOfRegion, 0, CV_FILLED);
 		}
-
 	}
-
 	//imshow("Mask", processedFrame);
 	return processedFrame;
 }

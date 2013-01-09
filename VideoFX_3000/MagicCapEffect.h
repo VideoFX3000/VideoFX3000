@@ -9,8 +9,8 @@ public:
 	MagicCapEffect(void);
 	virtual ~MagicCapEffect(void);
 	virtual void setTool(ToolInterface *tool);
-	void initialize(int frameWidth, int frameHeight);
-	cv::Mat processFrame(cv::Mat input);
+	virtual void initialize(int frameWidth, int frameHeight);
+	virtual cv::Mat processFrame(cv::Mat input);
 private:
 	int frameWidth;
 	int frameHeight;

@@ -14,16 +14,6 @@ VideoRingBuffer::~VideoRingBuffer(void)
 {
 }
 
-// Allgemeine Verarbeitungsmethode, die die anderen Member-Funktionen aufruft und die gleichnamige
-// abstrakte Methode in der Basisklasse ToolInterface überschreibt
-// WIRD AKTUELL NICHT VERWENDET
-Mat VideoRingBuffer::process(cv::Mat& input){
-	resizeBuffer(100); //delay.bufferSize
-	writeBuffer(input);
-	input = readWithDelay(100); //delay.delaySize
-	return input;
-}
-
 // größe des Buffers anpassen
 void VideoRingBuffer::resizeBuffer(int size){
 	this->size = size;
@@ -31,7 +21,7 @@ void VideoRingBuffer::resizeBuffer(int size){
 }
 
 // aktuelles Videoframe in den Buffer (Vektor) schreiben und Index erhöhen
-void VideoRingBuffer::writeBuffer(cv::Mat& videoFrame){
+void VideoRingBuffer::writeBuffer(const cv::Mat& videoFrame){
 	videoFrame.copyTo(buffer[writeIndex]);
 	writeIndex++;
 	if(writeIndex == size){

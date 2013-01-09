@@ -78,6 +78,8 @@
   <ItemGroup>
     <ClCompile Include="Backgroundsubstraction.cpp" />
     <ClCompile Include="DelayEffect.cpp" />
+    <ClCompile Include="GhostEffect.cpp" />
+    <ClCompile Include="HighPass.cpp" />
     <ClCompile Include="LooperEffect.cpp" />
     <ClCompile Include="MagicCapEffect.cpp" />
     <ClCompile Include="VideoEngine.cpp" />
@@ -88,6 +90,8 @@
     <ClInclude Include="Backgroundsubstraction.h" />
     <ClInclude Include="DelayEffect.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="GhostEffect.h" />
+    <ClInclude Include="HighPass.h" />
     <ClInclude Include="LooperEffect.h" />
     <ClInclude Include="MagicCapEffect.h" />
     <ClInclude Include="ToolInterface.h" />

@@ -4,7 +4,7 @@ ERL - Videobuffer, Delay
 ERL - Geisterbilder-Effekt baue
 (- Webcam)
 
-- Looper: schneller in den neuen Loop reingehen
+ERL - Looper: schneller in den neuen Loop reingehen
 (- Looper: Webcamfunktion)
 
 - LooperEffect.h: kommentieren
@@ -15,9 +15,9 @@ ERL - Geisterbilder-Effekt baue
 - VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
 
 WICHTIG
-- VideoEngine.cpp: Array statt VideoWriterObjekt
-- DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
-- MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
+ERL - VideoEngine.cpp: Array statt VideoWriterObjekt
+ERL - DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
+ERL - MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
 
 - DOKUMENTATION SCHREIBEN
 
@@ -27,22 +27,21 @@ WICHTIG
 - VideoEngine.cpp: kommentieren (zum Schluss)
 
 
-- Fragen mit Plaß klären^^
+**************Fragen mit Plaß klären^^***************************
 
 Fragen an Plaß:
-- VideoRingBuffer: 
-	- wie binden wir die process()-Methode ein? Ein einfacher Aufruf beispielsweise in DelayEffect.cpp funktioniert nicht, da an die einzelnen Methoden Bedingungen geknüpft sind
-	- wie verknüpfen wir VRB mit DelayEffect am sinnvollsten, z. B. Implementation einer Methode, getInputParameters?
-- Effect:
-	- wo binden wir die Metode setTool() am Besten ein?
-- VideoEngine.h:
-	- hier evtl. Variable vom Typ ToolInterface deklarieren?
-- VideoEngine.cpp:
-	- wie bekommen wir die Switch-Anweisungen funktionsfähig
-- LooperEffect:
-	- NOCH FORMULIEREN
+ERL - VideoRingBuffer: 
+		- wie binden wir die process()-Methode ein? Ein einfacher Aufruf beispielsweise in DelayEffect.cpp funktioniert nicht, da an die einzelnen Methoden Bedingungen geknüpft sind
+		- wie verknüpfen wir VideoRingBuffer mit DelayEffect am sinnvollsten, z. B. Implementation einer Methode, getInputParameters?
+ERL - Effect:
+		- wo binden wir die Metode setTool() am Besten ein?
+ERL - VideoEngine.h:
+		- hier evtl. Variable vom Typ ToolInterface deklarieren?
+ERL - VideoEngine.cpp:
+		- wie bekommen wir die Switch-Anweisungen funktionsfähig
+ERL - LooperEffect:
+		- wie bekommen wir es hin, dass der Looper sofort nach Drücken der Taste "q" beendet wird, ABER der looper so wie bisher funktioniert (also anschließend weitere Loops aufgezeichnet werden können)
 - DelayEffect:
 	- ist es sinnvoll, die Verarbeitungen für ein gewisses Intervall durchzuführen, also z. B. pro Sekunde? (wie würde das bei eine FrameRate von 29.97 funktionieren?)
 	- wie realisieren wir, dass der DelayEffect immer bis zum Ende läuft (beispielsweise bricht die Wiedergabe ab, wenn das video zu Ende ist). Am Besten wäre es, wenn die verzögerten Frames zum Ende hin ausgeblendet
 	  würden, sodass das Video schließlich mit einem Frame endet.
-	- WIE FUNKTIONIERT ES, DEN ALPHAKANAL PRO VERZÖGERTES FRAME ZU VERÄNDERN? Laut skript müsste es so funktionieren (processedFrame = multiply(Source, Factor, Maske)), tut es aber nicht ;)

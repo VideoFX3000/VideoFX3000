@@ -75,12 +75,12 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 
 
 	//----------BEGINN VARIANTE 1------------
-/*
+
 		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame);
 		binaryMask = tool->process(currentFrame);
 		processedFrame.copyTo(copyOfFirstFrame, binaryMask);
 		imshow("Cap-Intensity", copyOfFirstFrame);
-*/
+
 	//---------ENDE VARIANTE 1------------
 
 
@@ -89,7 +89,7 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 
 
 	//---------BEGINN VARIANTE 2---------------
-
+/*
 		// Kanäle, die notwendig sind um Frames nach und nach verblassen zu lassen
 		//float alpha = 0.025; // Alpha-Kanal
 		float beta; // Beta-Kanal
@@ -104,7 +104,7 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 		imshow("Cap-Intensity", processedFrame);
 
 	//-------ENEDE VARIANTE 2-------------
-	}
+*/	}
 
 	return currentFrame;
 }

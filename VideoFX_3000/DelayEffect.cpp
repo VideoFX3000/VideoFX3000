@@ -82,10 +82,6 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 			// Berechnung des notwendigen Frameabstandes
 			frameDistance = (float) delayWindow / (float) numberOfDelayedFrames;
 
-			// Hinzufügen der gewünschten Anzahl an verzögerten Frames (FUNKTIONIERT JETZT SCHEINBAR KORREKT)
-
-	//----------BEGINN VARIANTE 1-------------
-/*
 			for(int i = 0; i < delayWindow; i+=frameDistance){
 				Mat processedFrame;
 				buffer.readWithDelay(delayWindow-i).copyTo(processedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame
@@ -93,54 +89,8 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 				processedFrame.copyTo(currentFrame, binaryMask); // kopiert bestimmten Bereich des verzögerten Frames in das aktuelle Frame
 			}
 		}
-*/
-	//----------ENDE VARIANTE 1---------------
-
-
-
-
-	
-	//---------------neue Variante mit verblassenden Frames (könnte man zum Beispiel nach Drücken einer bestimmten Taste aktivieren)--------------
-		
-
-
-
-
-	//------BEGINN VARIANTE 2-----------
-
-			// Kanäle, die notwendig sind um Frames nach und nach verblassen zu lassen
-			float alpha = 1; // Alpha-Kanal
-			float beta; // Beta-Kanal
-			float alphaFactor = 0.8 / numberOfDelayedFrames;
-			
-			currentFrame.copyTo(originalFrame); // kopiert das unbearbeitete aktuelle Frame um es später dem bearbeiteten aktuellen Frame hinzufügen zu können (Alpha = 100 %)
-			int count = 1;
-
-			for(int i = 0; i < (numberOfDelayedFrames*frameDistance); i+=frameDistance){
-				alpha = 1;
-				alpha -= alphaFactor*count;
-				count++;
-				Mat processedFrame;
-				buffer.readWithDelay(delayWindow-i).copyTo(processedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame				
-				multiply(processedFrame, alpha, processedFrame); // die Frames werden blasser, je älter sie sind (Person)
-				beta = 1-alpha;
-				multiply(currentFrame, beta, currentFrame); // die Berechnung in processedFrame muss in currentFrame gegensätzlich erfolgen damit der Frame korrekt aussieht
-				add(processedFrame, currentFrame, currentFrame); // beide Frames werden nun addiert	
-				
-			}
-			binaryMask = tool->process(originalFrame); // erzeugt Binärmaske des original Bildes (currentFrame)
-			originalFrame.copyTo(currentFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
-		}
-		
-	// --------------ENDE VARIANTE 2------------
 		
 		imshow("Delayed", currentFrame);// ÜBERGANGSWEISE zum Testen, im fertigen Programm muss nur in VideoEngine.cpp das videoFrame NACH der process-Funktion angezeigt werden
 	}
 	return currentFrame;
 }
-
-/*void DelayEffect::process(float* input, float*output, int numberOfSamples){
-for(int i = 0; i < numberOfSamples; i++){
-output[i] = processFrame(input[i]);
-}
-}*/

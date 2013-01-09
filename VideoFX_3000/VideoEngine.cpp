@@ -6,8 +6,9 @@ VideoEngine::VideoEngine(void)
 	: frameWidth (0)
 	, frameHeight(0)
 	, input(0)
-	, effectType(0)
 	, writerCheck(false)
+	, delayTime(0)
+	, bufferSize(2)
 { 
 }
 
@@ -15,36 +16,23 @@ VideoEngine::~VideoEngine(void)
 {
 }
 
-bool VideoEngine::openVideo(const string& path, const char& effectType){
+void VideoEngine::setEffect(Effect *effect){
+	this->effect = effect;
+}
+
+bool VideoEngine::openVideo(const string& path){
 	videoCapture.open(path);
-	this->effectType = effectType;
+
 	if (videoCapture.isOpened()){
 		frameNumber = 0;
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
 		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
-		
+
 		namedWindow("Video");
-		if (effectType == '1'){
-			delay.initialize(frameWidth, frameHeight);
-			return true;
-		}
-		else if (effectType == '2'){
-			loop.initialize(frameWidth, frameHeight);
-			return true;
-		}
-		else if (effectType == '3'){
-			magic.initialize(frameWidth, frameHeight);
-			return true;
-		}
 
+		effect->initialize(frameWidth, frameHeight);
 
-		switch(effectType){
-		case '1': delay.initialize(frameWidth, frameHeight);
-			break;
-		case '2': loop.initialize(frameWidth, frameHeight);
-			break;
-		}		
 		return true;
 	}
 	else {
@@ -52,70 +40,106 @@ bool VideoEngine::openVideo(const string& path, const char& effectType){
 	}
 }
 
-void VideoEngine::runVideo(){
+char VideoEngine::runVideo(){
 	createTrackbar("Thresh", "Video", 0, 255);
 	setTrackbarPos("Thresh", "Video", 20);
 
-	firstCall = true;
-	
-	while(true && input != 'c'){
+	bool stopEffect = false;
+
+	while(true && input != 'c' || stopEffect == false){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
-		if (videoCapture.read(videoFrame) == false)
+		if (!videoCapture.read(videoFrame))
 			break;
 		frameNumber++;
-		showVideoFrame(videoFrame);
 		
-		if(kbhit())
+		Mat processedFrame = effect->processFrame(videoFrame);
+		showVideoFrame(processedFrame);
+
+		if (kbhit()){
 			input = getch();
+		}
 		if(input == 'r' || writerCheck == true)
-			writeVideo(videoFrame);
-		if(input == 's')
-			stopVideo(videoFrame);
-			
-		if (effectType == '1'){
-			videoFrame = delay.processFrame(videoFrame);
+			writeVideo(processedFrame);
+		if(input == 's'){
+			stopVideo(processedFrame);
 		}
-		else if (effectType == '2'){
-			loop.loopInputCheck(input);
+
+		loopInputCheck(input, delayTime);
+		if (input == 'l'){
+			delayTime = 0;
+			writerCheck = false;
+			input = 'q';
 		}
-		else if (effectType == '3'){
-			videoFrame = magic.processFrame(videoFrame);
-		}
-/*
-		switch(effectType){
-		case '1': videoFrame = delay.processFrame(videoFrame);//HIER jeweiligen effect (loop/delay) einsetzen
-		//HIER später evtl. Aufruf von process(videoFrame)
-			break;
-		case '2': //loopeffekte
-			break;
-		}
-*/		waitKey(30);
+
+		if(input == 'c')
+			stopEffect = true;
+
+		waitKey(30);
 	}
-	input = '0';
+
+	return input;
 }
 //schreibt aktuelle Videodatei
 void VideoEngine::writeVideo(const Mat& videoFrame){
-	cout << "---writing" << endl;
-	if(firstCall == true){
-		videoWriter.open("Video.avi", CV_FOURCC('D', 'I', 'V', 'X'), frameRate, Size(frameWidth, frameHeight), true);
-		cout << videoWriter.isOpened() << endl;//scheinbar kann das Video nicht mehr geschrieben werden
-		firstCall = false;
+	if(!writerCheck){
+		cout << "---writing" << endl;	
+		//videoWriter.open("Video.avi", CV_FOURCC('D', 'I', 'V', 'X'), frameRate, Size(frameWidth, frameHeight), true);
+		writerCheck = true;
 	}
-	videoWriter.write(videoFrame);
-	writerCheck = true;
+	//videoWriter.write(videoFrame);
+	bufferLooper.resizeBuffer(bufferSize);
+	bufferLooper.writeBuffer(videoFrame);
+	bufferSize++;
+	delayTime++;
 }
 //stoppt Videoschreiben
 void VideoEngine::stopVideo(const Mat& videoFrame){	
-	cout << "---stop" << endl;
-	writerCheck = false;
-	videoWriter.release();
-	firstCall = true;
+	if (writerCheck){
+		cout << "---stop" << endl;
+		writerCheck = false;
+	}
+	//videoWriter.release();
+}
+
+void VideoEngine::loopInputCheck(int input, int delayTime){
+	if(input == 'l')
+		loopVideo(delayTime);
+
+	//waitKey(30);
+}
+
+void VideoEngine::loopVideo(int delayTime){
+
+	cout << "---looping" << endl;
+	char abfrage = '0';
+	//VideoCapture loopedVideo;
+	//loopedVideo.open("Video.avi");
+	//cout << loopedVideo.isOpened() << endl;
+
+	while(abfrage != 'q'){
+		bool looping = true;
+		for (int i = 0; i < delayTime && looping == true; i++){
+			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
+			//if (loopedVideo.read(videoFrame) == false)
+			//break;
+			bufferLooper.readWithDelay(delayTime-i).copyTo(videoFrame);
+			imshow("Video", videoFrame);
+			if(kbhit()){
+				abfrage = getch();
+				if(abfrage == 'q')
+					break;
+			}
+			waitKey(30);
+		}
+
+	}
 }
 
 void VideoEngine::showVideoFrame(const Mat&videoFrame){
 	imshow("Video", videoFrame);
 }
 
+//Kann ggf. gelöscht werden
 void VideoEngine::showProcessedFrame(const Mat&processedFrame){
 	imshow("Result", processedFrame);
 
