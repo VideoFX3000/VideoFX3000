@@ -45,7 +45,7 @@
     <ClCompile Include="TransparencyEffect.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="VideoEngineMain.cpp">
+    <ClCompile Include="VideoFX_3000.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

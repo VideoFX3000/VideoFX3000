@@ -6,8 +6,8 @@
 #include <conio.h> //für kbhit()
 #include <stdlib.h>
 #include "Effect.h"
-#include "ToolInterface.h"
-#include "Backgroundsubstraction.h"
+//#include "ToolInterface.h"
+//#include "Backgroundsubstraction.h"
 #include "LooperEffect.h"
 #include "DelayEffect.h"
 #include "MagicCapEffect.h"

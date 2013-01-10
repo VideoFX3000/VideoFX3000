@@ -17,6 +17,7 @@ ERL (- Looper: Webcamfunktion)
 WICHTIG
 - Aufnahmefunktion wieder einbauen
 - Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
+- Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden), Enter-Aufforderung teilweise entfernen (prüfen wo)
 - Doku
 - Strukturdiagramm
 - Präsentation

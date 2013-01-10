@@ -2,7 +2,6 @@
 #define LOOPEREFFECT_H
 
 #include "Effect.h"
-#include "VideoRingBuffer.h"
 
 class LooperEffect : public Effect
 {
@@ -16,8 +15,6 @@ private:
 	int frameWidth;
 	int frameHeight;
 	ToolInterface *tool;
-public:
-	VideoRingBuffer bufferLooper;
 };
 
 #endif
