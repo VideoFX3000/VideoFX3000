@@ -37,13 +37,16 @@ private:
 	int frameHeight;
 	int frameNumber;
 	float frameRate;
+	//std::string& videoCodec;
 	char input;
 	cv::VideoWriter videoWriter;
-	//ToolInterface* tool; //wird momentan erst in LooperEffect.h gebraucht
 	bool writerCheck;
+	bool recorderCheck;
 	Effect *effect;
 	int delayTime;
 	int bufferSize;
+	std::string loopRecordedVideoName;
+	char loopRecordedVideoNameCounter;
 	VideoRingBuffer bufferLooper;
 };
 

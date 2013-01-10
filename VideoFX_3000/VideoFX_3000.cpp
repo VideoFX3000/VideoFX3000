@@ -58,7 +58,7 @@ int main()
 			break;
 
 		case '3':	cout << "-----Loop" << endl;
-			cout << "Aufzeichnen: 'r' druecken" << endl;
+			cout << "Aufzeichnen: 'w' druecken" << endl;
 			cout << "Aufzeichnung stoppen: 's' druecken" << endl;
 			cout << "Aufzeichnung loopen: 'l' druecken" << endl;
 			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;

@@ -7,8 +7,11 @@ VideoEngine::VideoEngine(void)
 	, frameHeight(0)
 	, input(0)
 	, writerCheck(false)
+	, recorderCheck(false)
 	, delayTime(0)
 	, bufferSize(2)
+	, loopRecordedVideoName ("0")
+	, loopRecordedVideoNameCounter('0')
 { 
 }
 
@@ -25,14 +28,20 @@ bool VideoEngine::openVideo(const string& path){
 		videoCapture.open(0);
 	}
 	else{
-	videoCapture.open(path);
+		videoCapture.open(path);
 	}
 
 	if (videoCapture.isOpened()){
+		if (path == "0"){
+			frameRate = 60.; // muss momentan noch je System angepasst werden, da bei videoCapture.get(FPS) bei der WebCam 0 als Rückgabewert
+		}
+		else{
+			frameRate = videoCapture.get(CV_CAP_PROP_FPS);
+		}
 		frameNumber = 0;
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
-		frameRate = videoCapture.get(CV_CAP_PROP_FPS);
+		//videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
 
 		namedWindow("Video");
 
@@ -49,21 +58,21 @@ char VideoEngine::runVideo(){
 	createTrackbar("Thresh", "Video", 0, 255);
 	setTrackbarPos("Thresh", "Video", 20);
 	input = '0';
-	bool stopEffect = false;
+	bool stopThisEffect = false;
 
-	while(true && input != 'c' || stopEffect == false){
+	while(true && input != 'c' || stopThisEffect == false){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		if (!videoCapture.read(videoFrame))
 			break;
 		frameNumber++;
-		
+
 		Mat processedFrame = effect->processFrame(videoFrame);
 		showVideoFrame(processedFrame);
 
 		if (kbhit()){
 			input = getch();
 		}
-		if(input == 'r' || writerCheck == true)
+		if(input == 'w' || writerCheck == true)
 			writeVideo(processedFrame);
 		if(input == 's'){
 			stopVideo(processedFrame);
@@ -77,11 +86,11 @@ char VideoEngine::runVideo(){
 		}
 
 		if(input == 'c'){
-			stopEffect = true;
+			stopThisEffect = true;
 			videoCapture.release();
 		}
 
-		waitKey(30);
+		waitKey(frameRate);
 	}
 
 	return input;
@@ -90,10 +99,8 @@ char VideoEngine::runVideo(){
 void VideoEngine::writeVideo(const Mat& videoFrame){
 	if(!writerCheck){
 		cout << "---writing" << endl;	
-		//videoWriter.open("Video.avi", CV_FOURCC('D', 'I', 'V', 'X'), frameRate, Size(frameWidth, frameHeight), true);
 		writerCheck = true;
 	}
-	//videoWriter.write(videoFrame);
 	bufferLooper.resizeBuffer(bufferSize);
 	bufferLooper.writeBuffer(videoFrame);
 	bufferSize++;
@@ -105,14 +112,11 @@ void VideoEngine::stopVideo(const Mat& videoFrame){
 		cout << "---stop" << endl;
 		writerCheck = false;
 	}
-	//videoWriter.release();
 }
 
 void VideoEngine::loopInputCheck(int input, int delayTime){
 	if(input == 'l')
 		loopVideo(delayTime);
-
-	//waitKey(30);
 }
 
 void VideoEngine::loopVideo(int delayTime){
@@ -122,21 +126,53 @@ void VideoEngine::loopVideo(int delayTime){
 	//VideoCapture loopedVideo;
 	//loopedVideo.open("Video.avi");
 	//cout << loopedVideo.isOpened() << endl;
+	cout << "Video in Datei schreiben: r druecken" << endl;
+	cout << "Video in Datei speichern: s druecken" << endl;
 
-	while(abfrage != 'q'){
-		bool looping = true;
-		for (int i = 0; i < delayTime && looping == true; i++){
+	while(abfrage != 'q' && abfrage != 'c'){
+		for (int i = 0; i < delayTime; i++){
+			string recordedVideoName;
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 			//if (loopedVideo.read(videoFrame) == false)
 			//break;
 			bufferLooper.readWithDelay(delayTime-i).copyTo(videoFrame);
+
 			imshow("Video", videoFrame);
+
 			if(kbhit()){
 				abfrage = getch();
-				if(abfrage == 'q')
+				if(abfrage == 'q' || abfrage == 'c' || abfrage == 's'){
+					if (recorderCheck == true){
+						videoWriter.release();
+						recorderCheck == false;
+						if (loopRecordedVideoNameCounter == '9')
+							loopRecordedVideoNameCounter = '1';						
+					}
 					break;
+				}
 			}
-			waitKey(30);
+
+			if (abfrage == 'r' && recorderCheck == false){
+				loopRecordedVideoName = "LoopedVideo";
+				loopRecordedVideoNameCounter++;
+				loopRecordedVideoName += loopRecordedVideoNameCounter;
+				loopRecordedVideoName += ".avi";
+				videoWriter.open(loopRecordedVideoName, videoCapture.get(CV_CAP_PROP_FOURCC), frameRate, Size(frameWidth, frameHeight), true/*"true" = Farbe*/);
+				recorderCheck = true;
+				cout << "\a"; // Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei geschrieben wird
+				cout << "Video " << loopRecordedVideoNameCounter << " wird in Datei geschrieben" << endl;
+			}
+
+			if (recorderCheck == true){
+				videoWriter.write(videoFrame);
+				if (abfrage == 's'){
+					videoWriter.release();
+					recorderCheck = false;
+					cout << "\a"; // erneuter Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei gespeichert wurde
+					cout << "Video " << loopRecordedVideoNameCounter << " wurde gespeichert" << endl;
+				}
+			}
+			waitKey(frameRate);
 		}
 
 	}
