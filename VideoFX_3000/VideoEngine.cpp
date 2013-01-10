@@ -23,7 +23,8 @@ void VideoEngine::setEffect(Effect *effect){
 	this->effect = effect;
 }
 
-bool VideoEngine::openVideo(const string& path){
+bool VideoEngine::openVideo(const string& path, string effectType){
+	this->effectType = effectType;
 	if (path == "0"){
 		videoCapture.open(0);
 	}
@@ -44,7 +45,7 @@ bool VideoEngine::openVideo(const string& path){
 		//videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
 
 		namedWindow("Video");
-
+		
 		effect->initialize(frameWidth, frameHeight);
 
 		return true;
@@ -78,11 +79,10 @@ char VideoEngine::runVideo(){
 			stopVideo(processedFrame);
 		}
 
-		loopInputCheck(input, delayTime);
-		if (input == 'l'){
+		input = loopInputCheck(input, delayTime);
+		if (input == 'q'){
 			delayTime = 0;
 			writerCheck = false;
-			input = 'q';
 		}
 
 		if(input == 'c'){
@@ -114,24 +114,26 @@ void VideoEngine::stopVideo(const Mat& videoFrame){
 	}
 }
 
-void VideoEngine::loopInputCheck(int input, int delayTime){
+char VideoEngine::loopInputCheck(char input, int delayTime){
 	if(input == 'l')
-		loopVideo(delayTime);
+		input = loopVideo(delayTime);
+	
+	return input;
 }
 
-void VideoEngine::loopVideo(int delayTime){
+char VideoEngine::loopVideo(int delayTime){
 
 	cout << "---looping" << endl;
 	char abfrage = '0';
 	//VideoCapture loopedVideo;
 	//loopedVideo.open("Video.avi");
 	//cout << loopedVideo.isOpened() << endl;
-	cout << "Video in Datei schreiben: r druecken" << endl;
-	cout << "Video in Datei speichern: s druecken" << endl;
+	cout << "--------Speicher-Funktionen-------" << endl;
+	cout << "Video in Datei schreiben: 'r' druecken" << endl;
+	cout << "Video in Datei speichern: 'f' druecken" << endl;
 
 	while(abfrage != 'q' && abfrage != 'c'){
 		for (int i = 0; i < delayTime; i++){
-			string recordedVideoName;
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 			//if (loopedVideo.read(videoFrame) == false)
 			//break;
@@ -141,7 +143,7 @@ void VideoEngine::loopVideo(int delayTime){
 
 			if(kbhit()){
 				abfrage = getch();
-				if(abfrage == 'q' || abfrage == 'c' || abfrage == 's'){
+				if(abfrage == 'q' || abfrage == 'c'){
 					if (recorderCheck == true){
 						videoWriter.release();
 						recorderCheck == false;
@@ -153,7 +155,7 @@ void VideoEngine::loopVideo(int delayTime){
 			}
 
 			if (abfrage == 'r' && recorderCheck == false){
-				loopRecordedVideoName = "LoopedVideo";
+				loopRecordedVideoName = effectType;
 				loopRecordedVideoNameCounter++;
 				loopRecordedVideoName += loopRecordedVideoNameCounter;
 				loopRecordedVideoName += ".avi";
@@ -165,7 +167,7 @@ void VideoEngine::loopVideo(int delayTime){
 
 			if (recorderCheck == true){
 				videoWriter.write(videoFrame);
-				if (abfrage == 's'){
+				if (abfrage == 'f'){
 					videoWriter.release();
 					recorderCheck = false;
 					cout << "\a"; // erneuter Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei gespeichert wurde
@@ -176,6 +178,7 @@ void VideoEngine::loopVideo(int delayTime){
 		}
 
 	}
+	return abfrage;
 }
 
 void VideoEngine::showVideoFrame(const Mat&videoFrame){

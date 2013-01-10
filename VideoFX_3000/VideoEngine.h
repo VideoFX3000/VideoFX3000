@@ -21,7 +21,7 @@ public:
 	VideoEngine();
 	virtual ~VideoEngine(void);
 	void setEffect(Effect *effect);
-	bool openVideo(const std::string& path);
+	bool openVideo(const std::string& path, std::string effectType);
 	char runVideo();
 	//Grundlegende Verarbeitungsfunktionen
 	void writeVideo(const cv::Mat& videoFrame);
@@ -29,8 +29,8 @@ public:
 	//Anzeige-Funktionen
 	void showVideoFrame(const cv::Mat& videoFrame);
 	void showProcessedFrame(const cv::Mat&processedFrame);
-	void loopInputCheck(int input, int delayTime);
-	void loopVideo(int delayTime);
+	char loopInputCheck(char input, int delayTime);
+	char loopVideo(int delayTime);
 private:
 	cv::VideoCapture videoCapture;
 	int frameWidth;
@@ -47,6 +47,7 @@ private:
 	int bufferSize;
 	std::string loopRecordedVideoName;
 	char loopRecordedVideoNameCounter;
+	std::string effectType;
 	VideoRingBuffer bufferLooper;
 };
 

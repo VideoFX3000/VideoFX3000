@@ -11,13 +11,18 @@ ERL (- Looper: Webcamfunktion)
 - LooperEffect.cpp: kommentieren
 - Backgroundsubstraction.h: kommentieren
 - Backgroundsubstraction.cpp: kommentieren
+- MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
+- MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist
+- VideoEngine.h: kommentieren (zum Schluss)
+- VideoEngine.cpp: kommentieren (zum Schluss)
 
-- VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
+ERL - VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
 
 WICHTIG
-- Aufnahmefunktion wieder einbauen
+ERL - Aufnahmefunktion wieder einbauen
 - Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
-- Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden), Enter-Aufforderung teilweise entfernen (prüfen wo)
+ERL - Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden)
+ERL - Enter-Aufforderung teilweise entfernen (prüfen wo)
 - Doku
 - Strukturdiagramm
 - Präsentation
@@ -27,10 +32,6 @@ ERL - MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
 
 - DOKUMENTATION SCHREIBEN
 
-- MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
-- MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist
-- VideoEngine.h: kommentieren (zum Schluss)
-- VideoEngine.cpp: kommentieren (zum Schluss)
 
 
 **************Fragen mit Plaß klären^^***************************

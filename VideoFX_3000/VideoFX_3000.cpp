@@ -32,24 +32,37 @@ int main()
 		cin >> inputPrg;
 
 		switch(inputPrg){
-		case '1':	cout << "-----Delay" << endl;
+		case '1':	system("cls");
+			cout << "********************* VideoFX_3000 ********************" << endl << endl;
+			cout << "             *** D E L A Y E F F E K T ***" << endl << endl << endl;
+			cout << "--------------------Loop-Funktionen--------------------" << endl << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			delay = new DelayEffect();
 			app.setEffect(delay);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(videoPath, "Delayeffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete delay;
 			}
 			break;
-		case '2':	cout << "-----Ghost" << endl;
+		case '2':	system("cls");
+			cout << "-----Ghosteffekt" << endl;
+			cout << "----------Loop-Funktionen----------" << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			ghost = new GhostEffect();
 			app.setEffect(ghost);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(videoPath, "Ghosteffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
@@ -57,16 +70,18 @@ int main()
 			}
 			break;
 
-		case '3':	cout << "-----Loop" << endl;
-			cout << "Aufzeichnen: 'w' druecken" << endl;
-			cout << "Aufzeichnung stoppen: 's' druecken" << endl;
-			cout << "Aufzeichnung loopen: 'l' druecken" << endl;
+		case '3':	system("cls");
+			cout << "-----Loopeffekt" << endl;
+			cout << "----------Loop-Funktionen----------" << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
 			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			loop = new LooperEffect();
 			app.setEffect(loop);
-			if (app.openVideo(camPath))
+			if (app.openVideo(camPath, "Loopeffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
@@ -74,38 +89,58 @@ int main()
 			}
 			break;
 
-		case '4':	cout << "-----Tarnkappeneffekt" << endl;
+		case '4':	system("cls");
+			cout << "-----Tarnkappeneffekt" << endl;
+			cout << "----------Loop-Funktionen----------" << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			magic = new MagicCapEffect();
 			app.setEffect(magic);
-			if (app.openVideo(camPath))
+			if (app.openVideo(camPath, "Tarnkappeneffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
 				delete magic;
 			}
 			break;
-		case '5':	cout << "-----Hochpass" << endl;
+		case '5':	system("cls");
+			cout << "-----Hochpasseffekt" << endl;
+			cout << "----------Loop-Funktionen----------" << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			high = new HighPassEffect();
 			app.setEffect(high);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(videoPath, "Hochpasseffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
+				delete high;
 			}
 			break;
-		case '6':	cout << "-----Transparenzeffekt" << endl;
+		case '6':	system("cls");
+			cout << "-----Transparenzeffekt" << endl;
+			cout << "----------Loop-Funktionen----------" << endl;
+			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
+			cout << "Schreiben anhalten: 's' druecken" << endl;
+			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
+			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
 			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
 
 			transparency = new TransparencyEffect();
 			app.setEffect(transparency);
-			if (app.openVideo(videoPath))
+			if (app.openVideo(videoPath, "Transparenzeffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
+				delete transparency;
 			}
 			break;
 		default: cout << "Fehler: Ungueltige Eingabe!" << endl;
@@ -117,6 +152,7 @@ int main()
 		
 
 	}while(inputPrg == 'c');
+
 
 	waitKey(0);
 	
