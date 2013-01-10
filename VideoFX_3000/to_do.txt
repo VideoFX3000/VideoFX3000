@@ -21,7 +21,7 @@ ERL - VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
 WICHTIG
 ERL - Aufnahmefunktion wieder einbauen
 - Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
-ERL - Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden)
+ERL Transparenzeffekt"- Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden)
 ERL - Enter-Aufforderung teilweise entfernen (prüfen wo)
 - Doku
 - Strukturdiagramm
