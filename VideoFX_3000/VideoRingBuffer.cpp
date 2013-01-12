@@ -1,3 +1,5 @@
+// FERTIG
+
 #include "VideoRingBuffer.h"
 using namespace cv;
 
@@ -6,12 +8,15 @@ VideoRingBuffer::VideoRingBuffer(void)
 	// Initialisierung der Member-Variablen
 	: size(0)
 	, writeIndex(0)
-	, readIndex(0)
 {
 }
 
 VideoRingBuffer::~VideoRingBuffer(void)
 {
+}
+
+void VideoRingBuffer::setWriteIndex(void){
+	writeIndex = 0;
 }
 
 // größe des Buffers anpassen
@@ -31,7 +36,7 @@ void VideoRingBuffer::writeBuffer(const cv::Mat& videoFrame){
 
 // verzögerte Frames aus dem Vektor auslesen
 Mat VideoRingBuffer::readWithDelay(int delay){
-	readIndex = writeIndex - delay;
+	int readIndex = writeIndex - delay;
 	if( readIndex < 0){
 		readIndex += size;
 	}

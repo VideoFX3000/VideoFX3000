@@ -143,31 +143,19 @@ int main()
 				delete transparency;
 			}
 			break;
-		default: cout << "Fehler: Ungueltige Eingabe!" << endl;
+		case 'e': 
 			break;
+
+		default: cout << "Fehler: Ungueltige Eingabe!" << endl;
 		}
 
 		if (kbhit())
 			inputPrg = getch();
-		
 
 	}while(inputPrg == 'c');
 
-
-	waitKey(0);
-	
-
-
-
-	//ALTER STAND
-	/*
-	const string videoPath = "C:/Users/Public/Videos/Micro-dance_2_.AVI";
-	//const string videoPath = "C:\\Users\\Public\\Videos\\Micro-dance.AVI";
-
-	VideoEngine app;
-
-	if (app.openVideo(videoPath,'2'))
-	{
-	app.runVideo();
-	}
-	*/}
+	system("cls");
+	cout << endl << "VideoFX_3000 wird beendet. Auf Wiedersehen! (bitte 'ENTER' druecken)" << endl;
+	getchar();
+	getchar();
+}
