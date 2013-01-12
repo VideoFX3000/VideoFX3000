@@ -1,3 +1,5 @@
+// Fertig
+
 #include "GhostEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>
@@ -7,6 +9,10 @@ using namespace cv;
 
 // Maximale Größe des Delayfensters vom Ghosteffekt
 const int MAX_GHOST_WINDOW = 200;
+const string windowGhost = "Ghost";
+const string sliderFrames = "Frames";
+const string sliderWindow = "Window";
+
 GhostEffect::GhostEffect(void)
 	// Initialisierung der Member-Variablen
 	: frameNumber(0)
@@ -28,15 +34,15 @@ void GhostEffect::setTool(ToolInterface *tool){
 
 // Methode um die Framebreite und -höhe sowie die Größe des Delays und des Buffers in der Klasse zuzuweisen
 void GhostEffect::initialize(int frameWidth, int frameHeight){
-	namedWindow("Ghost");
+	namedWindow(windowGhost);
 	this->ghostWindow = 20; // vom Benutzer steuerbar
 	this->numberOfDelayedFrames = 6; // vom Benutzer steuerbar
 	// Slider um die Anzahl der verzögerten Frames einzustellen
-	createTrackbar("Frames", "Ghost", 0, ghostWindow);
-	setTrackbarPos("Frames", "Ghost", numberOfDelayedFrames);
+	createTrackbar(sliderFrames, windowGhost, 0, ghostWindow);
+	setTrackbarPos(sliderFrames, windowGhost, numberOfDelayedFrames);
 	// Slider um die Fenstergröße einzustellen
-	createTrackbar("Window", "Ghost", 0, MAX_GHOST_WINDOW);
-	setTrackbarPos("Window", "Ghost", ghostWindow);
+	createTrackbar(sliderWindow, windowGhost, 0, MAX_GHOST_WINDOW);
+	setTrackbarPos(sliderWindow, windowGhost, ghostWindow);
 	buffer.resizeBuffer(MAX_GHOST_WINDOW); // Größe des Buffers setzen
 }
 
@@ -55,19 +61,19 @@ Mat GhostEffect::processFrame(Mat currentFrame){
 
 	//----------Konfiguration der Regler, damit nur sinnvolle Werte eingestellt werden können---------------
 	// Einstellung der gewünschten Zeit-Fenstergröße
-	ghostWindow = getTrackbarPos("Window", "Ghost");
+	ghostWindow = getTrackbarPos(sliderWindow, windowGhost);
 	if(ghostWindow <= numberOfDelayedFrames && numberOfDelayedFrames > 0){
 		ghostWindow = numberOfDelayedFrames;
-		setTrackbarPos("Window", "Ghost", ghostWindow);
+		setTrackbarPos(sliderWindow, windowGhost, ghostWindow);
 	}
 	// erst wenn der Buffer komplett gefüllt ist können daraus verzögerte Frames ausgelesen werden
 	if(frameNumber >= ghostWindow)
 	{
 		// Einstellung der gewünschten Frameanzahl
-		numberOfDelayedFrames = getTrackbarPos("Frames", "Ghost"); // alternativ frameDistance einstellen
+		numberOfDelayedFrames = getTrackbarPos(sliderFrames, windowGhost); // alternativ frameDistance einstellen
 		if (numberOfDelayedFrames >= ghostWindow){
 			numberOfDelayedFrames = ghostWindow;
-			setTrackbarPos("Frames", "Ghost", numberOfDelayedFrames);
+			setTrackbarPos(sliderFrames, windowGhost, numberOfDelayedFrames);
 		}
 
 		if(numberOfDelayedFrames > 0){
@@ -97,8 +103,7 @@ Mat GhostEffect::processFrame(Mat currentFrame){
 			binaryMask = tool->process(originalFrame, 0); // erzeugt Binärmaske des original Bildes (currentFrame)
 			originalFrame.copyTo(currentFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
 		}
-		
-		imshow("Ghost", currentFrame);// ÜBERGANGSWEISE zum Testen, im fertigen Programm muss nur in VideoEngine.cpp das videoFrame NACH der process-Funktion angezeigt werden
+		imshow(windowGhost, currentFrame);
 	}
 	return currentFrame;
 }

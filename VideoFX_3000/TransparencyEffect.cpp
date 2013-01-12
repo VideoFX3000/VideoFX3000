@@ -1,18 +1,18 @@
+//Fertig
+
 #include "TransparencyEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>
 using namespace std;
 using namespace cv;
 
-//---------ACHTUNG: teilweise aus DelayEffect kopiert und einige Kommentare noch nicht angepasst
-const string window_TransparencyEffect = "Transparenzeffekt";
-const string trackbar_alpha = "Alpha";
+// Namendefinition
+const string windowTransparencyEffect = "Transparenzeffekt";
+const string trackbarAlpha = "Alpha";
 
 TransparencyEffect::TransparencyEffect(void)
 	// Initialisierung der Member-Variablen
-	: frameWidth(0)
-	, frameHeight(0)
-	, frameNumber(0)
+	: frameNumber(0)
 	, alpha(2.)
 {
 	setTool(new Backgroundsubstraction());// Auswahl des Tools für die Verarbeitung
@@ -30,13 +30,9 @@ void TransparencyEffect::setTool(ToolInterface *tool){
 
 // Methode um die Framebreite und -höhe der Klasse zuzuweisen und die Trackbar einzufügen
 void TransparencyEffect::initialize(int frameWidth, int frameHeight){
-	namedWindow(window_TransparencyEffect);
-	this->frameWidth = frameWidth;
-	this->frameHeight = frameHeight;
-
-	// Trackbar zum Testen
-	createTrackbar(trackbar_alpha, window_TransparencyEffect, 0, 100);
-	setTrackbarPos(trackbar_alpha, window_TransparencyEffect, alpha);
+	namedWindow(windowTransparencyEffect);
+	createTrackbar(trackbarAlpha, windowTransparencyEffect, 0, 100);
+	setTrackbarPos(trackbarAlpha, windowTransparencyEffect, alpha);
 }
 
 // Methode, in der die Verarbeitungen durchgeführt werden
@@ -46,13 +42,11 @@ Mat TransparencyEffect::processFrame(Mat currentFrame){
 	Mat processedFrame;
 
 	frameNumber++;
-
 	if(frameNumber == 2){
-		currentFrame.copyTo(firstFrame);
+		currentFrame.copyTo(firstFrame); // Kopiert ersten Frame für Backgroundsubstraction
 	}
 
-	// Trackbar zum Testen
-	alpha = getTrackbarPos(trackbar_alpha, window_TransparencyEffect)/100.;
+	alpha = getTrackbarPos(trackbarAlpha, windowTransparencyEffect)/100.;
 
 	if (frameNumber > 2){
 		firstFrame.copyTo(copyOfFirstFrame);
@@ -67,7 +61,7 @@ Mat TransparencyEffect::processFrame(Mat currentFrame){
 		multiply(copyOfFirstFrame, beta, copyOfFirstFrame); // die Berechnung in currentFrame muss in copyOfFirstFrame gegensätzlich erfolgen damit der Frame korrekt aussieht
 		add(currentFrame, copyOfFirstFrame, currentFrame); // beide Frames werden nun addiert
 		currentFrame.copyTo(processedFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
-		imshow(window_TransparencyEffect, processedFrame);
+		imshow(windowTransparencyEffect, processedFrame);
 	}
 	return currentFrame;
 }

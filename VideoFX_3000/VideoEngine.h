@@ -59,7 +59,7 @@ private:
 	std::string fileName;
 	// Zählvariable für Dateinamen
 	char fileNameCounter;
-	//std::string& videoCodec;	
+	int videoCodec;	
 	cv::VideoWriter videoWriter;
 	bool writerCheck;
 	bool recorderCheck;

@@ -2,6 +2,10 @@
 using namespace cv;
 using namespace std;
 
+// Namendefinition
+const string windowNameVideo = "Video";
+const string sliderNameThresh = "Thresh";
+
 VideoEngine::VideoEngine(void)
 	// Initialisierung der Member-Variablen
 	: frameWidth (0)
@@ -47,56 +51,53 @@ bool VideoEngine::openVideo(const string& path, string effectType){
 		frameNumber = 0;
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
-		//videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
-
-		namedWindow("Video");
+		//funktioniert noch nicht
+		videoCodec = int(videoCapture.get(CV_CAP_PROP_FOURCC));
+		cout << videoCodec << endl; 
+		namedWindow(windowNameVideo);
 		
 		effect->initialize(frameWidth, frameHeight);
-
 		return true;
-	}
-	else {
+	}else {
 		return false;
 	}
 }
 
 char VideoEngine::runVideo(){
-	createTrackbar("Thresh", "Video", 0, 255);
-	setTrackbarPos("Thresh", "Video", 20);
+	createTrackbar(sliderNameThresh, windowNameVideo, 0, 255);
+	setTrackbarPos(sliderNameThresh, windowNameVideo, 20);
 	input = '0';
 
+	// Abbruchvariable, die sicherstellt, dass das VideoCapture Objekt am Ende released wird
 	bool stopThisEffect = false;
 
 	while(stopThisEffect == false){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
+		// bricht das Lesen ab, wenn videoCapture.read einen false Wert liefert
 		if (!videoCapture.read(videoFrame))
 			break;
-		frameNumber++;
 
+		frameNumber++;
 		showVideoFrame(videoFrame);
 		Mat processedFrame = effect->processFrame(videoFrame);
 
 		// prüft, ob eine Taste gedrück wurde und weist den entsprechenden Buchstaben input zu
-		if (kbhit()){
+		if (kbhit())
 			input = getch();
-		}
 		if(input == 'w' || writerCheck == true)
 			writeVideo(processedFrame);
-		if(input == 's'){
+		if(input == 's')
 			stopVideo(processedFrame);
-		}
-
+		
 		input = loopInputCheck(input, delayTime);
 		if (input == 'q'){
 			delayTime = 0;
 			writerCheck = false;
 		}
-
 		if(input == 'c' || input == 'e'){
 			stopThisEffect = true;
 			videoCapture.release();
 		}
-
 		waitKey(frameRate);
 	}
 
@@ -106,7 +107,6 @@ char VideoEngine::runVideo(){
 	fileNameCounter = '0';
 	// der writeIndex des Buffers muss zurückgesetzt werden
 	bufferLoopedVideo.setWriteIndex();
-
 	return input;
 }
 
@@ -134,13 +134,12 @@ void VideoEngine::stopVideo(const Mat& videoFrame){
 char VideoEngine::loopInputCheck(char input, int delayTime){
 	if(input == 'l')
 		input = loopVideo(delayTime);
-	
+
 	return input;
 }
 
 // loopt das Video, das sich im Puffer befindet
 char VideoEngine::loopVideo(int delayTime){
-
 	cout << "---looping" << endl;
 	char keyRequest = '0';
 	
@@ -155,8 +154,7 @@ char VideoEngine::loopVideo(int delayTime){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 			
 			bufferLoopedVideo.readWithDelay(delayTime-i).copyTo(videoFrame);
-
-			imshow("Video", videoFrame);
+			imshow(windowNameVideo, videoFrame);
 
 			if(kbhit()){
 				keyRequest = getch();
@@ -198,5 +196,5 @@ char VideoEngine::loopVideo(int delayTime){
 }
 
 void VideoEngine::showVideoFrame(const Mat&videoFrame){
-	imshow("Video", videoFrame);
+	imshow(windowNameVideo, videoFrame);
 }

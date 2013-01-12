@@ -1,3 +1,5 @@
+// Fertig
+
 #ifndef TOOLINTERFACE_H
 #define TOOLINTERFACE_H
 

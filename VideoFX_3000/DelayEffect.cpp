@@ -1,3 +1,5 @@
+// Fertig
+
 #include "DelayEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>
@@ -7,6 +9,10 @@ using namespace cv;
 
 // Maximale Größe des Delayfensters
 const int MAX_DELAY_WINDOW = 200;
+const string windowName = "Delayed";
+const string frameTrackbarName = "Frames";
+const string windowTrackbarName = "Windows";
+
 DelayEffect::DelayEffect(void)
 	// Initialisierung der Member-Variablen
 	: frameNumber(0)
@@ -16,7 +22,6 @@ DelayEffect::DelayEffect(void)
 {
 	setTool(new Backgroundsubstraction());// Auswahl des Tools für die Verarbeitung
 }
-
 
 DelayEffect::~DelayEffect(void)
 {
@@ -31,15 +36,15 @@ void DelayEffect::setTool(ToolInterface *tool){
 // Methode um die Framebreite und -höhe sowie die Größe des Delays und des Buffers in der Klasse
 // zuzuweisen
 void DelayEffect::initialize(int frameWidth, int frameHeight){
-	namedWindow("Delayed");
+	namedWindow(windowName);
 	this->delayWindow = 20; // vom Benutzer steuerbar
 	this->numberOfDelayedFrames = 6; // vom Benutzer steuerbar
 	// Slider um die Anzahl der verzögerten Frames einzustellen
-	createTrackbar("Frames", "Delayed", 0, delayWindow);
-	setTrackbarPos("Frames", "Delayed", numberOfDelayedFrames);
+	createTrackbar(frameTrackbarName, windowName, 0, delayWindow);
+	setTrackbarPos(frameTrackbarName, windowName, numberOfDelayedFrames);
 	// Slider um die Fenstergröße einzustellen
-	createTrackbar("Window", "Delayed", 0, MAX_DELAY_WINDOW);
-	setTrackbarPos("Window", "Delayed", delayWindow);
+	createTrackbar(windowTrackbarName, windowName, 0, MAX_DELAY_WINDOW);
+	setTrackbarPos(windowTrackbarName, windowName, delayWindow);
 	buffer.resizeBuffer(MAX_DELAY_WINDOW); // Größe des Buffers setzen
 }
 
@@ -57,21 +62,20 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 	}
 
 	//----------Konfiguration der Regler, damit nur sinnvolle Werte eingestellt werden können---------------
-
 	// Einstellung der gewünschten Zeit-Fenstergröße
-	delayWindow = getTrackbarPos("Window", "Delayed");
+	delayWindow = getTrackbarPos(windowTrackbarName, windowName);
 	if(delayWindow <= numberOfDelayedFrames && numberOfDelayedFrames > 0){
 		delayWindow = numberOfDelayedFrames;
-		setTrackbarPos("Window", "Delayed", delayWindow);
+		setTrackbarPos(windowTrackbarName, windowName, delayWindow);
 	}
 	// erst wenn der Buffer komplett gefüllt ist können daraus verzögerte Frames ausgelesen werden
 	if(frameNumber >= delayWindow)
 	{
 		// Einstellung der gewünschten Frameanzahl
-		numberOfDelayedFrames = getTrackbarPos("Frames", "Delayed"); // alternativ frameDistance einstellen
+		numberOfDelayedFrames = getTrackbarPos(frameTrackbarName, windowName); // alternativ frameDistance einstellen
 		if (numberOfDelayedFrames >= delayWindow){
 			numberOfDelayedFrames = delayWindow;
-			setTrackbarPos("Frames", "Delayed", numberOfDelayedFrames);
+			setTrackbarPos(frameTrackbarName, windowName, numberOfDelayedFrames);
 		}
 
 		if(numberOfDelayedFrames > 0){
@@ -86,7 +90,7 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 			}
 		}
 		
-		imshow("Delayed", currentFrame);// ÜBERGANGSWEISE zum Testen, im fertigen Programm muss nur in VideoEngine.cpp das videoFrame NACH der process-Funktion angezeigt werden
+		imshow(windowName, currentFrame);
 	}
 	return currentFrame;
 }

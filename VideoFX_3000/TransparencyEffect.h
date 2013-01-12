@@ -1,7 +1,12 @@
+// Fertig
+
 #ifndef TRANSPARENCYEFFECT_H
 #define TRANSPARENCYEFFECT_H
 
 #include "Effect.h"
+
+// Benutzt die process-Funktion aus der Klasse Backgroundsubstraction, um eine Binärmaske zu erstellen
+// Der Nutzer kann mit einem Regler den Alphawert des bewegten Objekts ändern
 
 class TransparencyEffect :	public Effect
 {
@@ -12,8 +17,6 @@ public:
 	virtual void initialize(int frameWidth, int frameHeight);
 	virtual cv::Mat processFrame(cv::Mat input);
 private:
-	int frameWidth;
-	int frameHeight;
 	// Zählvariable, die hochgezählt wird
 	int frameNumber;
 	// Alpha-Kanal

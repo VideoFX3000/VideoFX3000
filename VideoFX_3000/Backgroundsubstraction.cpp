@@ -1,8 +1,14 @@
+// Fertig
+
 #include "Backgroundsubstraction.h"
 #include <opencv2/opencv.hpp>
 #include <vector>
 using namespace cv;
 using namespace std;
+
+// Namendefinition
+const string windowNameVideo = "Video";
+const string sliderNameThresh = "Thresh";
 
 Backgroundsubstraction::Backgroundsubstraction(void)
 	// Initialisierung der Member-Variablen
@@ -10,7 +16,8 @@ Backgroundsubstraction::Backgroundsubstraction(void)
 {
 }
 
-Backgroundsubstraction::~Backgroundsubstraction(void){
+Backgroundsubstraction::~Backgroundsubstraction(void)
+{
 }
 
 // diese Funktion erkennt die größte sich bewegende Fläche
@@ -22,29 +29,29 @@ Mat Backgroundsubstraction::process(Mat& input, int delta)
 	Mat grayFrame (input.rows, input.cols, CV_8UC1);
 	Mat originalGray;
 
+	//wandelt eingegebenes Matobjekt in Graustufenbild um
 	cvtColor(input, grayFrame, CV_BGR2GRAY);
 		
 	grayFrame.copyTo(originalGray);
 	
 	//kopiert nicht das erste Frame, falls Kamera Zeit zum Starten benötigt
 	frameNumber++;
-	if (frameNumber == 2/*% 5 == 0*/)
+	if (frameNumber == 2)
 	{
 		grayFrame.copyTo(firstFrame);
 	}	
 
+	// solange die Framenummer kleiner als 6 ist, wird das Graustufenbild nach processedFrame kopiert
+	// damit processedFrame nicht leer ist und eine Fehlermeldung erscheint
 	if (frameNumber < 6)
 	{
 		grayFrame.copyTo(processedFrame);
-	}
-	else
-	{
+	}else{
 		//Berechnet Unterschied von grayFrame und firstFrame; hier: Unterschied = Bewegung
 		absdiff(grayFrame, firstFrame, grayFrame);
 
-		int thresh = getTrackbarPos("Thresh", "Video");
+		int thresh = getTrackbarPos(sliderNameThresh, windowNameVideo); //Namen sind in VideoEngine.cpp definiert
 		threshold(grayFrame, processedFrame, thresh, 255, THRESH_BINARY);
-		//imshow("Differenz", grayFrame);
 	}
 
 	medianBlur(processedFrame, processedFrame, 3);	//verhindert Pixellöcher
@@ -87,6 +94,5 @@ Mat Backgroundsubstraction::process(Mat& input, int delta)
 			drawContours(processedFrame, contours, indexOfRegion, 0, CV_FILLED);
 		}
 	}
-	//imshow("Mask", processedFrame);
 	return processedFrame;
 }
