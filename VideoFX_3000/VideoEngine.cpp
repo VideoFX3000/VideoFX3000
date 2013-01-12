@@ -22,6 +22,7 @@ VideoEngine::VideoEngine(void)
 
 VideoEngine::~VideoEngine(void)
 {
+	delete effect;
 }
 
 void VideoEngine::setEffect(Effect *effect){
@@ -42,20 +43,20 @@ bool VideoEngine::openVideo(const string& path, string effectType){
 
 	if (videoCapture.isOpened()){
 		if (path == "0"){
-			frameRate = 60.; // muss momentan noch je System angepasst werden, da bei videoCapture.get(FPS) bei der WebCam 0 als Rückgabewert
+			frameRate = 29.97; // muss momentan noch je System angepasst werden, da bei videoCapture.get(FPS) bei der WebCam 0 als Rückgabewert
+			videoCodec = CV_FOURCC('M', 'J', 'P', 'G');
 		}
 		else{
 			frameRate = videoCapture.get(CV_CAP_PROP_FPS);
+			videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
 		}
 
 		frameNumber = 0;
 		frameWidth = videoCapture.get(CV_CAP_PROP_FRAME_WIDTH);
 		frameHeight = videoCapture.get(CV_CAP_PROP_FRAME_HEIGHT);
-		//funktioniert noch nicht
-		videoCodec = int(videoCapture.get(CV_CAP_PROP_FOURCC));
-		cout << videoCodec << endl; 
+
 		namedWindow(windowNameVideo);
-		
+
 		effect->initialize(frameWidth, frameHeight);
 		return true;
 	}else {
@@ -88,7 +89,7 @@ char VideoEngine::runVideo(){
 			writeVideo(processedFrame);
 		if(input == 's')
 			stopVideo(processedFrame);
-		
+
 		input = loopInputCheck(input, delayTime);
 		if (input == 'q'){
 			delayTime = 0;
@@ -142,7 +143,7 @@ char VideoEngine::loopInputCheck(char input, int delayTime){
 char VideoEngine::loopVideo(int delayTime){
 	cout << "---looping" << endl;
 	char keyRequest = '0';
-	
+
 	cout << "--------Speicher-Funktionen-------" << endl;
 	cout << "'r': Dateiaufnahme starten: " << endl;
 	cout << "'f': Dateiaufnahme beenden: " << endl;
@@ -152,7 +153,7 @@ char VideoEngine::loopVideo(int delayTime){
 		// Diese Schleife läuft zusätzlich zu den Bedingungen im for, solange nicht "q" oder "c" gedrückt wird
 		for (int i = 0; i < delayTime; i++){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
-			
+
 			bufferLoopedVideo.readWithDelay(delayTime-i).copyTo(videoFrame);
 			imshow(windowNameVideo, videoFrame);
 
@@ -174,10 +175,15 @@ char VideoEngine::loopVideo(int delayTime){
 				fileNameCounter++;
 				fileName += fileNameCounter;
 				fileName += ".avi";
-				videoWriter.open(fileName, videoCapture.get(CV_CAP_PROP_FOURCC), frameRate, Size(frameWidth, frameHeight), true/*"true" = Farbe*/);
-				recorderCheck = true;
-				cout << "\a"; // Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei geschrieben wird
-				cout << "Video " << fileNameCounter << " Dateiaufnahme gestartet" << endl;
+				videoWriter.open(fileName, videoCodec, frameRate, Size(frameWidth, frameHeight), true/*"true" = Farbe*/);
+				if(videoWriter.isOpened()){
+					recorderCheck = true;
+					cout << "\a"; // Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei geschrieben wird
+					cout << "Video " << fileNameCounter << " Dateiaufnahme gestartet" << endl;
+				}
+				else{
+					cout << "Fehler! Dateiaufnahme fehlgeschlagen." << endl;
+				}
 			}
 
 			if (recorderCheck == true){

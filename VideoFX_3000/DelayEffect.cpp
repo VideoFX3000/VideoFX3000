@@ -9,7 +9,7 @@ using namespace cv;
 
 // Maximale Größe des Delayfensters
 const int MAX_DELAY_WINDOW = 200;
-const string windowName = "Delayed";
+const string windowName = "Delayeffekt";
 const string frameTrackbarName = "Frames";
 const string windowTrackbarName = "Windows";
 
@@ -25,6 +25,7 @@ DelayEffect::DelayEffect(void)
 
 DelayEffect::~DelayEffect(void)
 {
+	delete tool;
 }
 
 // Grundlegende Methode um das notwendige Tool der Basisklasse ToolInterface zu definieren, welches

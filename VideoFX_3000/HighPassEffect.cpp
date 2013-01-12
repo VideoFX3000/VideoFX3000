@@ -18,6 +18,7 @@ HighPassEffect::HighPassEffect(void)
 
 HighPassEffect::~HighPassEffect(void)
 {
+	delete tool;
 }
 
 // Grundlegende Methode um das notwendige Tool der Basisklasse ToolInterface zu definieren, welches
@@ -46,5 +47,5 @@ Mat HighPassEffect::processFrame(Mat currentFrame){
 	waitKey(30);
 
 	// aktuelles Bild wird im Fenster "Video" wiedergegeben
-	return currentFrame;
+	return processedFrame;
 }

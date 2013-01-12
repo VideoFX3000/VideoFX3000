@@ -24,6 +24,7 @@ MagicCapEffect::MagicCapEffect(void)
 
 MagicCapEffect::~MagicCapEffect(void)
 {
+	delete tool;
 }
 
 // Grundlegende Methode um das notwendige Tool der Basisklasse ToolInterface zu definieren, welches
@@ -66,5 +67,5 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 		processedFrame.copyTo(copyOfFirstFrame, binaryMask);
 		imshow(windowMagicCapEffect, copyOfFirstFrame);
 	}
-	return currentFrame;
+	return copyOfFirstFrame;
 }

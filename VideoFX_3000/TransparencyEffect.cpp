@@ -20,6 +20,7 @@ TransparencyEffect::TransparencyEffect(void)
 
 TransparencyEffect::~TransparencyEffect(void)
 {
+	delete tool;
 }
 
 // Grundlegende Methode um das notwendige Tool der Basisklasse ToolInterface zu definieren, welches

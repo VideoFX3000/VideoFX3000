@@ -9,7 +9,7 @@ using namespace cv;
 
 // Maximale Größe des Delayfensters vom Ghosteffekt
 const int MAX_GHOST_WINDOW = 200;
-const string windowGhost = "Ghost";
+const string windowGhost = "Ghosteffekt";
 const string sliderFrames = "Frames";
 const string sliderWindow = "Window";
 
@@ -25,6 +25,7 @@ GhostEffect::GhostEffect(void)
 
 GhostEffect::~GhostEffect(void)
 {
+	delete tool;
 }
 
 // Grundlegende Methode um das notwendige Tool der Basisklasse ToolInterface zu definieren, welches verwendet werden soll
