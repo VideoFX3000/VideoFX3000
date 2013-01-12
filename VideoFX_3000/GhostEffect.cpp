@@ -9,9 +9,7 @@ using namespace cv;
 const int MAX_GHOST_WINDOW = 200;
 GhostEffect::GhostEffect(void)
 	// Initialisierung der Member-Variablen
-	: frameWidth(0)
-	, frameHeight(0)
-	, frameNumber(0)
+	: frameNumber(0)
 	, ghostWindow(0)
 	, numberOfDelayedFrames(0)
 	, frameDistance(1)
@@ -31,8 +29,6 @@ void GhostEffect::setTool(ToolInterface *tool){
 // Methode um die Framebreite und -höhe sowie die Größe des Delays und des Buffers in der Klasse zuzuweisen
 void GhostEffect::initialize(int frameWidth, int frameHeight){
 	namedWindow("Ghost");
-	this->frameWidth = frameWidth;
-	this->frameHeight = frameHeight;
 	this->ghostWindow = 20; // vom Benutzer steuerbar
 	this->numberOfDelayedFrames = 6; // vom Benutzer steuerbar
 	// Slider um die Anzahl der verzögerten Frames einzustellen

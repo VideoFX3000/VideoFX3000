@@ -1,6 +1,11 @@
+//Fertig
+
 #ifndef HIGHPASSEFFECT_H
 #define HIGHPASSEFFECT_H
 #include "Effect.h"
+
+// Diese Klasse verwendet die in HighPass definierte Funktion
+// zur Erkennung von Kanten durch Analyse der Frequenzen im Bild
 
 class HighPassEffect : public Effect
 {

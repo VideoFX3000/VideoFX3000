@@ -1,29 +1,30 @@
+//Fertig
+
 #include "HighPass.h"
-
 using namespace cv;
-
 
 HighPass::HighPass(void)
 	// Initialisierung der Member-Variablen
 	: delta(0)
-	
 {
 }
-
 
 HighPass::~HighPass(void)
 {
 }
 
 Mat HighPass::process(cv::Mat& input, int delta){
-	this->delta = delta;
+	// Initialisierung temporär nötiger Objekte und Variablen
 	Mat src, src_gray;
 	Mat grad;
-	char* window_name = "Hochpass";
-
+	Mat grad_x, grad_y;
+	Mat abs_grad_x, abs_grad_y;
 	int scale = 1;
 	int ddepth = CV_16S;
 	int c;
+
+	// Delta wird von der Trackbar eingestellt
+	this->delta = delta;
 
 	while(true){
 		Mat processedFrame;
@@ -32,9 +33,6 @@ Mat HighPass::process(cv::Mat& input, int delta){
 		GaussianBlur( input, processedFrame, Size(3,3), 0, 0, BORDER_DEFAULT );
 		// Graustufenbild erzeugen
 		cvtColor( processedFrame, processedFrame_gray, CV_RGB2GRAY );
-		// benötigte Mat-Obj erzeugen
-		Mat grad_x, grad_y;
-		Mat abs_grad_x, abs_grad_y;
 
 		/// Gradient X ausrechnen
 		Sobel( processedFrame_gray, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );

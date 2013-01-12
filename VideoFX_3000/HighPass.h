@@ -1,7 +1,12 @@
+// Fertig
+
 #ifndef HIGHPASS_H
 #define HIGHPASS_H
 
 #include "ToolInterface.h"
+
+// Diese Klasse führt mit dem übergebenen Mat-Objekt eine Kantenerkennung durch
+// Die Kanten werden anhand hoher Frequenzen mit der Sobel-Funktion erkannt
 
 class HighPass : public ToolInterface
 {

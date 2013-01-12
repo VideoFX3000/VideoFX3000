@@ -1,12 +1,11 @@
+// FERTIG
+
 #include "LooperEffect.h"
 #include <iostream>
 using namespace std;
 using namespace cv;
 
 LooperEffect::LooperEffect(void)
-	: frameWidth(0)
-	, frameHeight(0)
-	, tool(0)
 {
 }
 

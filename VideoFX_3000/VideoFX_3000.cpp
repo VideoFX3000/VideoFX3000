@@ -1,6 +1,22 @@
+//Fertig
+
 #include "VideoEngine.h"
 using namespace cv;
 using namespace std;
+
+void looperAusgabe(){
+	cout << "--------------------Loop-Funktionen--------------------" << endl << endl;
+	cout << "'w': Video in Puffer schreiben" << endl;
+	cout << "'s': Schreiben anhalten" << endl;
+	cout << "'l': Puffer auslesen und gelooped wiedergeben" << endl;
+	cout << "'q': Loopwiedergabe beenden" << endl;
+	cout << "'c': Effekt abbrechen und zum Hauptmenue zurueckkehren" << endl;
+}
+
+void headerAusgabe(){
+	system("cls");
+	cout << "********************* VideoFX_3000 ********************" << endl << endl;
+}
 
 int main()
 {
@@ -19,28 +35,23 @@ int main()
 	char inputPrg;
 
 	do{
-		system("cls");
+		headerAusgabe();
 		cout << "Herzlich Willkommen beim VideoFX 3000" << endl;
-		cout << "Welchen Effekt?" << endl;
-		cout << "Delay: '1 + Enter' druecken" << endl;
-		cout << "Ghost: '2 + Enter' druecken" << endl;
-		cout << "Looper: '3 + Enter' druecken" << endl;
-		cout << "Tarnkappe: '4 + Enter' druecken" << endl;
-		cout << "Hochpass: '5 + Enter' druecken" << endl;
-		cout << "Transparenz: '6 + Enter' druecken" << endl;
+		cout << "Welchen Effekt waehlen Sie?" << endl << endl;
+		cout << "Delay: '1 + Enter'" << endl;
+		cout << "Ghost: '2 + Enter'" << endl;
+		cout << "Looper: '3 + Enter'" << endl;
+		cout << "Tarnkappe: '4 + Enter'" << endl;
+		cout << "Hochpass: '5 + Enter'" << endl;
+		cout << "Transparenz: '6 + Enter'" << endl;
 
 		cin >> inputPrg;
 
 		switch(inputPrg){
-		case '1':	system("cls");
-			cout << "********************* VideoFX_3000 ********************" << endl << endl;
+		case '1':	headerAusgabe();
+
 			cout << "             *** D E L A Y E F F E K T ***" << endl << endl << endl;
-			cout << "--------------------Loop-Funktionen--------------------" << endl << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+			looperAusgabe();
 
 			delay = new DelayEffect();
 			app.setEffect(delay);
@@ -51,14 +62,9 @@ int main()
 				delete delay;
 			}
 			break;
-		case '2':	system("cls");
-			cout << "-----Ghosteffekt" << endl;
-			cout << "----------Loop-Funktionen----------" << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+		case '2':	headerAusgabe();
+			cout << "             *** G H O S T E F F E K T ***" << endl << endl << endl;
+			looperAusgabe();
 
 			ghost = new GhostEffect();
 			app.setEffect(ghost);
@@ -70,14 +76,9 @@ int main()
 			}
 			break;
 
-		case '3':	system("cls");
-			cout << "-----Loopeffekt" << endl;
-			cout << "----------Loop-Funktionen----------" << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+		case '3':	headerAusgabe();
+			cout << "             *** L O O P E R E F F E K T ***" << endl << endl << endl;
+			looperAusgabe();
 
 			loop = new LooperEffect();
 			app.setEffect(loop);
@@ -89,14 +90,9 @@ int main()
 			}
 			break;
 
-		case '4':	system("cls");
-			cout << "-----Tarnkappeneffekt" << endl;
-			cout << "----------Loop-Funktionen----------" << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+		case '4':	headerAusgabe();
+			cout << "       *** T A R N K A P P E N E F F E K T ***" << endl << endl << endl;
+			looperAusgabe();
 
 			magic = new MagicCapEffect();
 			app.setEffect(magic);
@@ -107,14 +103,9 @@ int main()
 				delete magic;
 			}
 			break;
-		case '5':	system("cls");
-			cout << "-----Hochpasseffekt" << endl;
-			cout << "----------Loop-Funktionen----------" << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+		case '5':	headerAusgabe();
+			cout << "          *** H O C H P A S S E F F E K T ***" << endl << endl << endl;
+			looperAusgabe();
 
 			high = new HighPassEffect();
 			app.setEffect(high);
@@ -125,14 +116,9 @@ int main()
 				delete high;
 			}
 			break;
-		case '6':	system("cls");
-			cout << "-----Transparenzeffekt" << endl;
-			cout << "----------Loop-Funktionen----------" << endl;
-			cout << "Video in Puffer schreiben: 'w' druecken" << endl;
-			cout << "Schreiben anhalten: 's' druecken" << endl;
-			cout << "Puffer auslesen und gelooped wiedergeben: 'l' druecken" << endl;
-			cout << "Loopwiedergabe beenden: 'q' druecken" << endl;
-			cout << "Effekt abbrechen und zum Hauptmenue: 'c' druecken" << endl;
+		case '6':	headerAusgabe();
+			cout << "       *** T R A N S P A R E N Z E F F E K T ***" << endl << endl << endl;
+			looperAusgabe();
 
 			transparency = new TransparencyEffect();
 			app.setEffect(transparency);
@@ -146,7 +132,12 @@ int main()
 		case 'e': 
 			break;
 
-		default: cout << "Fehler: Ungueltige Eingabe!" << endl;
+		default:cout << "\a"; 
+				cout << "Fehler: Ungueltige Eingabe!" << endl;
+				cout << "Bitte Enter druecken" << endl;
+				getchar();
+				getchar();
+				inputPrg ='c';
 		}
 
 		if (kbhit())
@@ -155,7 +146,11 @@ int main()
 	}while(inputPrg == 'c');
 
 	system("cls");
-	cout << endl << "VideoFX_3000 wird beendet. Auf Wiedersehen! (bitte 'ENTER' druecken)" << endl;
+	cout << endl << "VideoFX_3000 wird beendet." << endl;
+	cout << "Auf Wiedersehen sagen Danny Kern und Ivonne Kubitza!" << endl;
+	cout << "(bitte 'ENTER' druecken)" << endl;
 	getchar();
 	getchar();
 }
+
+

@@ -9,9 +9,7 @@ using namespace cv;
 const int MAX_DELAY_WINDOW = 200;
 DelayEffect::DelayEffect(void)
 	// Initialisierung der Member-Variablen
-	: frameWidth(0)
-	, frameHeight(0)
-	, frameNumber(0)
+	: frameNumber(0)
 	, delayWindow(0)
 	, numberOfDelayedFrames(0)
 	, frameDistance(1)
@@ -34,8 +32,6 @@ void DelayEffect::setTool(ToolInterface *tool){
 // zuzuweisen
 void DelayEffect::initialize(int frameWidth, int frameHeight){
 	namedWindow("Delayed");
-	this->frameWidth = frameWidth;
-	this->frameHeight = frameHeight;
 	this->delayWindow = 20; // vom Benutzer steuerbar
 	this->numberOfDelayedFrames = 6; // vom Benutzer steuerbar
 	// Slider um die Anzahl der verzögerten Frames einzustellen

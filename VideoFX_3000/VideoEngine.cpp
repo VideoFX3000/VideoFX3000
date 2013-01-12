@@ -111,7 +111,7 @@ char VideoEngine::runVideo(){
 }
 
 // ********** Grundlegende Verarbeitungsfunktionen **********
-//schreibt aktuelle Videodatei
+//schreibt Video in den Puffer
 void VideoEngine::writeVideo(const Mat& videoFrame){
 	if(!writerCheck){
 		cout << "---writing" << endl;	
@@ -122,7 +122,7 @@ void VideoEngine::writeVideo(const Mat& videoFrame){
 	bufferSize++;
 	delayTime++;
 }
-//stoppt Videoschreiben
+//stoppt Schreiben des Videos in den Puffer
 void VideoEngine::stopVideo(const Mat& videoFrame){	
 	if (writerCheck){
 		cout << "---stop" << endl;
@@ -138,29 +138,29 @@ char VideoEngine::loopInputCheck(char input, int delayTime){
 	return input;
 }
 
+// loopt das Video, das sich im Puffer befindet
 char VideoEngine::loopVideo(int delayTime){
 
 	cout << "---looping" << endl;
-	char abfrage = '0';
-	//VideoCapture loopedVideo;
-	//loopedVideo.open("Video.avi");
-	//cout << loopedVideo.isOpened() << endl;
+	char keyRequest = '0';
+	
 	cout << "--------Speicher-Funktionen-------" << endl;
-	cout << "Video in Datei schreiben: 'r' druecken" << endl;
-	cout << "Video in Datei speichern: 'f' druecken" << endl;
+	cout << "'r': Dateiaufnahme starten: " << endl;
+	cout << "'f': Dateiaufnahme beenden: " << endl;
 
-	while(abfrage != 'q' && abfrage != 'c'){
+	// solange nicht "q" (Videoloop beenden) oder "c" (Effekt beenden) gedrückt wird läuft diese Schleife
+	while(keyRequest != 'q' && keyRequest != 'c'){
+		// Diese Schleife läuft zusätzlich zu den Bedingungen im for, solange nicht "q" oder "c" gedrückt wird
 		for (int i = 0; i < delayTime; i++){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
-			//if (loopedVideo.read(videoFrame) == false)
-			//break;
+			
 			bufferLoopedVideo.readWithDelay(delayTime-i).copyTo(videoFrame);
 
 			imshow("Video", videoFrame);
 
 			if(kbhit()){
-				abfrage = getch();
-				if(abfrage == 'q' || abfrage == 'c'){
+				keyRequest = getch();
+				if(keyRequest == 'q' || keyRequest == 'c'){
 					if (recorderCheck == true){
 						videoWriter.release();
 						recorderCheck == false;
@@ -171,7 +171,7 @@ char VideoEngine::loopVideo(int delayTime){
 				}
 			}
 
-			if (abfrage == 'r' && recorderCheck == false){
+			if (keyRequest == 'r' && recorderCheck == false){
 				fileName = effectType;
 				fileNameCounter++;
 				fileName += fileNameCounter;
@@ -179,23 +179,22 @@ char VideoEngine::loopVideo(int delayTime){
 				videoWriter.open(fileName, videoCapture.get(CV_CAP_PROP_FOURCC), frameRate, Size(frameWidth, frameHeight), true/*"true" = Farbe*/);
 				recorderCheck = true;
 				cout << "\a"; // Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei geschrieben wird
-				cout << "Video " << fileNameCounter << " wird in Datei geschrieben" << endl;
+				cout << "Video " << fileNameCounter << " Dateiaufnahme gestartet" << endl;
 			}
 
 			if (recorderCheck == true){
 				videoWriter.write(videoFrame);
-				if (abfrage == 'f'){
+				if (keyRequest == 'f'){
 					videoWriter.release();
 					recorderCheck = false;
 					cout << "\a"; // erneuter Piepton signalisiert dem Benutzer zusätzlich akustisch, dass das Video in eine Datei gespeichert wurde
-					cout << "Video " << fileNameCounter << " wurde gespeichert" << endl;
+					cout << "Video " << fileNameCounter << " Dateiaufnahme beendet" << endl;
 				}
 			}
 			waitKey(frameRate);
 		}
-
 	}
-	return abfrage;
+	return keyRequest;
 }
 
 void VideoEngine::showVideoFrame(const Mat&videoFrame){
