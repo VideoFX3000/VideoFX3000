@@ -7,6 +7,7 @@ ERL (- Webcam)
 ERL - Looper: schneller in den neuen Loop reingehen
 ERL (- Looper: Webcamfunktion)
 
+
 - LooperEffect.h: kommentieren
 - LooperEffect.cpp: kommentieren
 - Backgroundsubstraction.h: kommentieren
