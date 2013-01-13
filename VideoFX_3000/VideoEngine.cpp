@@ -1,5 +1,3 @@
-// NICHT FERTIG
-
 #include "VideoEngine.h"
 using namespace cv;
 using namespace std;

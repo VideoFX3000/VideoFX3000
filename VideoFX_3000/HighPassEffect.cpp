@@ -1,5 +1,3 @@
-// NICHT FERTIG
-
 #include "HighPassEffect.h"
 #include "HighPass.h"
 using namespace std;
