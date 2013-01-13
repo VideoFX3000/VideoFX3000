@@ -63,7 +63,10 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame); // rechnet Werte der Trackbars zum Frame und speichert den Frame in processedFrame
 		binaryMask = tool->process(currentFrame, 0); // erzeugt Bin‰rmaske des original Bildes (currentFrame)
 		processedFrame.copyTo(copyOfFirstFrame, binaryMask);// kopiert alles des verarbeiteten Frames, auﬂer dem maskierten Bereich, in das erste Frame
-		imshow(windowMagicCapEffect, copyOfFirstFrame);
+		//Debuggingausgabe
+		//imshow(windowMagicCapEffect, copyOfFirstFrame);
+		copyOfFirstFrame.copyTo(currentFrame);
 	}
-	return copyOfFirstFrame;
+	// verarbeitetes Bild wird in der Klasse VideoEngine wiedergegeben
+	return currentFrame;
 }

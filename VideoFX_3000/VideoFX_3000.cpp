@@ -146,16 +146,16 @@ int main()
 	}while(inputPrg == 'c');
 
 	system("cls");
-	cout << endl << "VideoFX_3000 wird beendet." << endl;
-	cout << "Auf Wiedersehen sagen Danny Kern und Ivonne Kubitza!" << endl;
-	cout << "Bitte Enter druecken" << endl;
-	getchar();
-	getchar();
+	cout << endl << "VideoFX_3000 wird beendet." << endl << endl << endl;
 	cout << "*       *  ********  *     *           *******    ******    ******    ******" << endl;
 	cout << " *     *   *          *   *                   *  *      *  *      *  *      *" << endl;
 	cout << "  *   *    *****        *                  ****  *      *  *      *  *      *" << endl;
 	cout << "   * *     *          *   *                   *  *      *  *      *  *      *" << endl;
-	cout << "    *      *         *     * ********  *******    ******    ******    ******" << endl;
+	cout << "    *      *         *     * ********  *******    ******    ******    ******" << endl << endl << endl << endl << endl<< endl << endl << endl << endl << endl;
+	cout << "Auf Wiedersehen sagen Danny Kern und Ivonne Kubitza!" << endl;
+	cout << "Bitte Enter druecken" << endl;
+	getchar();
+	getchar();
 }
 
 

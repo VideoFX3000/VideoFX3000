@@ -81,15 +81,41 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 			// Berechnung des notwendigen Frameabstandes
 			frameDistance = (float) delayWindow / (float) numberOfDelayedFrames;
 
-			for(int i = 0; i < delayWindow; i+=frameDistance){
-				Mat processedFrame;
-				buffer.readWithDelay(delayWindow-i).copyTo(processedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame
-				binaryMask = tool->process(processedFrame, 0); // erzeugt Binärmaske des verzögert ausgelesenen Frames
-				processedFrame.copyTo(currentFrame, binaryMask); // kopiert bestimmten Bereich des verzögerten Frames in das aktuelle Frame
+			// NOCH NICHT FUNKTIONSFÄHIG
+/*
+			if(frameNumber == 596){
+				Mat copyOfCurrentFrame;
+
+				for(int newWindow = delayWindow; newWindow > 0; newWindow -= 1)
+				{
+					int i = 0;
+					for(int k = 0; k < numberOfDelayedFrames; k++){
+						currentFrame.copyTo(copyOfCurrentFrame);
+						Mat newProcessedFrame;
+						buffer.readWithDelay(delayWindow-i).copyTo(newProcessedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame
+						binaryMask = tool->process(newProcessedFrame, 0); // erzeugt Binärmaske des verzögert ausgelesenen Frames
+						newProcessedFrame.copyTo(copyOfCurrentFrame, binaryMask); // kopiert bestimmten Bereich des verzögerten Frames in das aktuelle Frame
+						i+=frameDistance;
+					}
+					numberOfDelayedFrames--;
+					imshow(windowName, copyOfCurrentFrame);
+					waitKey(30);
+				}
+				return currentFrame;
 			}
+			else{
+*/				for(int i = 0; i < delayWindow; i+=frameDistance){
+					Mat processedFrame;
+					buffer.readWithDelay(delayWindow-i).copyTo(processedFrame); //liest Frame ab delayWindow Frames zuvor aus und kopiert in processedFrame
+					binaryMask = tool->process(processedFrame, 0); // erzeugt Binärmaske des verzögert ausgelesenen Frames
+					processedFrame.copyTo(currentFrame, binaryMask); // kopiert bestimmten Bereich des verzögerten Frames in das aktuelle Frame
+				}
+//			}
+
 		}
-		
-		imshow(windowName, currentFrame);
+
+		//imshow(windowName, currentFrame);
 	}
+	// verarbeitetes Bild wird in der Klasse VideoEngine.cpp wiedergegeben
 	return currentFrame;
 }

@@ -102,7 +102,8 @@ Mat GhostEffect::processFrame(Mat currentFrame){
 			binaryMask = tool->process(originalFrame, 0); // erzeugt Binärmaske des original Bildes (currentFrame)
 			originalFrame.copyTo(currentFrame, binaryMask); // kopiert nachdem die Schleife durchlaufen wurde einen bestimmten Bereich des originalen Frames in das aktuelle Frame
 		}
-		imshow(windowGhost, currentFrame);
+		//imshow(windowGhost, currentFrame);
 	}
+	// verarbeitetes Bild wird in der Klasse VideoEngine wiedergegeben
 	return currentFrame;
 }
