@@ -43,7 +43,7 @@ Mat HighPassEffect::processFrame(Mat currentFrame){
 
 	//Hochpass wird von der Klasse HighPass durchgeführt
 	processedFrame = tool->process(currentFrame, delta);
-	imshow(windowName, processedFrame);
+	//imshow(windowName, processedFrame);
 	waitKey(30);
 
 	// aktuelles Bild wird im Fenster "Video" wiedergegeben

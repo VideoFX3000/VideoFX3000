@@ -44,12 +44,17 @@ bool VideoEngine::openVideo(const string& path, string effectType){
 
 	if (videoCapture.isOpened()){
 		if (path == "0"){
-			frameRate = 29.97; // muss momentan noch je System angepasst werden, da bei videoCapture.get(FPS) bei der WebCam 0 als Rückgabewert
-			videoCodec = CV_FOURCC('M', 'J', 'P', 'G');
+			frameRate = 10.; // da bei videoCapture.get(FPS) bei der WebCam 0 als Rückgabewert (Bug von openCV)
+			videoCodec = CV_FOURCC('M', 'J', 'P', 'G'); //da bei videoCapture.get(Codec) bei der WebCam kein Codec zurückgegeben wird (Bug von openCV)
 		}
 		else{
 			frameRate = videoCapture.get(CV_CAP_PROP_FPS);
-			videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
+			if (effectType == "Hochpasseffekt"){
+				videoCodec = -1;//CV_FOURCC('D', 'I', 'B', ' ');
+			}
+			else{
+				videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
+			}
 		}
 
 		frameNumber = 0;
@@ -59,6 +64,7 @@ bool VideoEngine::openVideo(const string& path, string effectType){
 		namedWindow(windowNameVideo);
 
 		effect->initialize(frameWidth, frameHeight);
+
 		return true;
 	}else {
 		return false;
@@ -84,6 +90,7 @@ char VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 		Mat processedFrame = effect->processFrame(videoFrame);
+		imshow(effectType, processedFrame);
 
 		// prüft, ob eine Taste gedrück wurde und weist den entsprechenden Buchstaben input zu
 		if (kbhit())
@@ -102,7 +109,8 @@ char VideoEngine::runVideo(){
 			stopThisEffect = true;
 			videoCapture.release();
 		}
-		waitKey(frameRate);
+
+		waitKey(1000/frameRate);
 	}
 
 	delayTime = 0;
@@ -151,14 +159,14 @@ char VideoEngine::loopVideo(int delayTime){
 	cout << "'r': Dateiaufnahme starten: " << endl;
 	cout << "'f': Dateiaufnahme beenden: " << endl;
 
-	// solange nicht "q" (Videoloop beenden) oder "c" (Effekt beenden) gedrückt wird läuft diese Schleife
+	// solange nicht "q" (Videoloop beenden), "c" (Effekt beenden) oder "e" (Programm beenden) gedrückt wird läuft diese Schleife
 	while(keyRequest != 'q' && keyRequest != 'c'&& keyRequest != 'e'){
-		// Diese Schleife läuft zusätzlich zu den Bedingungen im for, solange nicht "q" oder "c" gedrückt wird
+		// Diese Schleife läuft zusätzlich zu den Bedingungen im for, solange nicht "q", "c" oder "e" gedrückt wird
 		for (int i = 0; i < delayTime; i++){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 
 			bufferLoopedVideo.readWithDelay(delayTime-i).copyTo(videoFrame);
-			imshow(windowNameVideo, videoFrame);
+			imshow(effectType, videoFrame);
 
 			if(kbhit()){
 				keyRequest = getch();
@@ -186,6 +194,8 @@ char VideoEngine::loopVideo(int delayTime){
 				}
 				else{
 					cout << "Fehler! Dateiaufnahme fehlgeschlagen." << endl;
+					if (fileNameCounter == '9')
+						fileNameCounter = '1';	
 				}
 			}
 
@@ -198,7 +208,7 @@ char VideoEngine::loopVideo(int delayTime){
 					cout << "Video " << fileNameCounter << " Dateiaufnahme beendet" << endl;
 				}
 			}
-			waitKey(frameRate);
+			waitKey(1000/frameRate);
 		}
 	}
 	return keyRequest;
