@@ -50,7 +50,7 @@ bool VideoEngine::openVideo(const string& path, string effectType){
 		else{
 			frameRate = videoCapture.get(CV_CAP_PROP_FPS);
 			if (effectType == "Hochpasseffekt"){
-				videoCodec = -1;//CV_FOURCC('D', 'I', 'B', ' ');
+				videoCodec = CV_FOURCC('D', 'I', 'B', ' ');
 			}
 			else{
 				videoCodec = videoCapture.get(CV_CAP_PROP_FOURCC);
@@ -90,7 +90,8 @@ char VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 		Mat processedFrame = effect->processFrame(videoFrame);
-		imshow(effectType, processedFrame);
+		//imshow(effectType, processedFrame);
+		showProcessedFrame(effectType, processedFrame);
 
 		// prüft, ob eine Taste gedrück wurde und weist den entsprechenden Buchstaben input zu
 		if (kbhit())
@@ -216,4 +217,9 @@ char VideoEngine::loopVideo(int delayTime){
 
 void VideoEngine::showVideoFrame(const Mat&videoFrame){
 	imshow(windowNameVideo, videoFrame);
+}
+
+void VideoEngine::showProcessedFrame(std::string effectType, const Mat& processedFrame){
+	this->effectType = effectType;
+	imshow(effectType, processedFrame);
 }

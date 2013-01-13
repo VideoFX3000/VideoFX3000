@@ -39,6 +39,7 @@ public:
 	char loopVideo(int delayTime);
 	// ******************* Anzeige-Funktion *********************
 	void showVideoFrame(const cv::Mat& videoFrame);
+	void showProcessedFrame(std::string effectType, const cv::Mat& processedFrame);
 private:
 	// Pointer für jeweiligen Effekt
 	Effect *effect;

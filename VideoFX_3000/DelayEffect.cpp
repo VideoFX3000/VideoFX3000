@@ -116,5 +116,6 @@ Mat DelayEffect::processFrame(Mat currentFrame){
 
 		//imshow(windowName, currentFrame);
 	}
+	// verarbeitetes Bild wird in der Klasse VideoEngine.cpp wiedergegeben
 	return currentFrame;
 }

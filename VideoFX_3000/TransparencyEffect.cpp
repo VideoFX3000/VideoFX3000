@@ -52,7 +52,11 @@ Mat TransparencyEffect::processFrame(Mat currentFrame){
 		multiply(currentFrame, alpha, currentFrame); // Blasses Vordergrundbild
 		multiply(copyOfFirstFrame, beta, copyOfFirstFrame); // die Berechnung in currentFrame muss in copyOfFirstFrame gegensätzlich erfolgen damit der Frame korrekt aussieht
 		add(currentFrame, copyOfFirstFrame, processedFrame); // beide Frames werden nun addiert
-		imshow(windowTransparencyEffect, processedFrame);
+		//Debuggingausgabe
+		//imshow(windowTransparencyEffect, processedFrame);
+		processedFrame.copyTo(currentFrame);
 	}
-	return processedFrame;
+	// verarbeitetes Bild wird in der Klasse VideoEngine wiedergegeben
+	// hier muss currentFrame verwendet werden, damit von Anfang an ein Frame verfügbar ist
+	return currentFrame;
 }

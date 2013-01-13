@@ -2,13 +2,12 @@ To Do Liste:
 
 noch nicht fertige:
 ERL - HighPass, HighPassEffekt jeweils .cpp
-- VideoEngine.cpp
-	- ggf. nur 1 Video speichern
-	- Effektwiedergabe in VideoEngine (leicht umzusetzen)
-- Doku
+ERL - VideoEngine.cpp
+		- Effektwiedergabe in VideoEngine (leicht umzusetzen)
+ERL - Doku
 - ggf. Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
 - VideoEngine.cpp: kommentieren (zum Schluss)
-- Strukturdiagramm
+ERL - Strukturdiagramm
 - Präsentation
 
 

@@ -46,6 +46,6 @@ Mat HighPassEffect::processFrame(Mat currentFrame){
 	//imshow(windowName, processedFrame);
 	waitKey(30);
 
-	// aktuelles Bild wird im Fenster "Video" wiedergegeben
+	// verarbeitetes Bild wird in der Klasse VideoEngine wiedergegeben
 	return processedFrame;
 }
