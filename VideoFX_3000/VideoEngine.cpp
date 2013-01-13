@@ -90,8 +90,7 @@ char VideoEngine::runVideo(){
 		frameNumber++;
 		showVideoFrame(videoFrame);
 		Mat processedFrame = effect->processFrame(videoFrame);
-		//imshow(effectType, processedFrame);
-		showProcessedFrame(effectType, processedFrame);
+		showProcessedFrame(processedFrame);
 
 		// prüft, ob eine Taste gedrück wurde und weist den entsprechenden Buchstaben input zu
 		if (kbhit())
@@ -167,7 +166,7 @@ char VideoEngine::loopVideo(int delayTime){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 
 			bufferLoopedVideo.readWithDelay(delayTime-i).copyTo(videoFrame);
-			imshow(effectType, videoFrame);
+			showProcessedFrame(videoFrame);
 
 			if(kbhit()){
 				keyRequest = getch();
@@ -219,7 +218,6 @@ void VideoEngine::showVideoFrame(const Mat&videoFrame){
 	imshow(windowNameVideo, videoFrame);
 }
 
-void VideoEngine::showProcessedFrame(std::string effectType, const Mat& processedFrame){
-	this->effectType = effectType;
+void VideoEngine::showProcessedFrame(const Mat& processedFrame){
 	imshow(effectType, processedFrame);
 }
