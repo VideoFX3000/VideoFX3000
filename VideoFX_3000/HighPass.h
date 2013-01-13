@@ -1,5 +1,3 @@
-// Fertig
-
 #ifndef HIGHPASS_H
 #define HIGHPASS_H
 

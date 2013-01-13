@@ -1,11 +1,9 @@
-// Fertig
-
 #ifndef TRANSPARENCYEFFECT_H
 #define TRANSPARENCYEFFECT_H
 
 #include "Effect.h"
 
-// Benutzt die process-Funktion aus der Klasse Backgroundsubstraction, um eine Binärmaske zu erstellen
+// Stellt ein bewegtes Objekt mit veränderbarem Alphakanal dar.
 // Der Nutzer kann mit einem Regler den Alphawert des bewegten Objekts ändern
 
 class TransparencyEffect :	public Effect

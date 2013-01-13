@@ -1,5 +1,3 @@
-// FERTIG
-
 #include "LooperEffect.h"
 #include <iostream>
 using namespace std;

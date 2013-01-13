@@ -1,5 +1,3 @@
-// FERTIG
-
 #ifndef EFFECT_H
 #define EFFECT_H
 
@@ -21,7 +19,9 @@ public:
 	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird. Dort wird das
 	// jeweilige Tool, das vom Effekt verwendet werden soll gesetzt.
 	virtual void setTool(ToolInterface* tool) = 0;
+	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird.
 	virtual void initialize(int frameWidth, int frameHeight) = 0;
+	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird.
 	virtual cv::Mat processFrame(cv::Mat currentFrame) = 0;
 };
 

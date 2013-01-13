@@ -1,5 +1,3 @@
-// FERTIG
-
 #ifndef VIDEORINGBUFFER_H
 #define VIDEORINGBUFFER_H
 
@@ -16,6 +14,7 @@ class VideoRingBuffer
 public:
 	VideoRingBuffer(void);
 	~VideoRingBuffer(void);
+	// writeIndex auf 0 setzen
 	void setWriteIndex(void);
 	// größe des Buffers anpassen
 	void resizeBuffer(int size);

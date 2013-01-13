@@ -1,5 +1,3 @@
-// FERTIG
-
 #ifndef GHOSTEFFECT_H
 #define GHOSTEFFECT_H
 

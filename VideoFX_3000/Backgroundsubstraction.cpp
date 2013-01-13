@@ -1,5 +1,3 @@
-// Fertig
-
 #include "Backgroundsubstraction.h"
 #include <opencv2/opencv.hpp>
 #include <vector>
@@ -50,7 +48,7 @@ Mat Backgroundsubstraction::process(Mat& input, int delta)
 		//Berechnet Unterschied von grayFrame und firstFrame; hier: Unterschied = Bewegung
 		absdiff(grayFrame, firstFrame, grayFrame);
 
-		int thresh = getTrackbarPos(sliderNameThresh, windowNameVideo); //Namen sind in VideoEngine.cpp definiert
+		int thresh = getTrackbarPos(sliderNameThresh, windowNameVideo);
 		threshold(grayFrame, processedFrame, thresh, 255, THRESH_BINARY);
 	}
 

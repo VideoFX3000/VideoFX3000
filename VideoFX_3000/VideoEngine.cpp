@@ -1,3 +1,5 @@
+// NICHT FERTIG
+
 #include "VideoEngine.h"
 using namespace cv;
 using namespace std;
@@ -22,7 +24,6 @@ VideoEngine::VideoEngine(void)
 
 VideoEngine::~VideoEngine(void)
 {
-	delete effect;
 }
 
 void VideoEngine::setEffect(Effect *effect){
@@ -75,8 +76,10 @@ char VideoEngine::runVideo(){
 	while(stopThisEffect == false){
 		Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
 		// bricht das Lesen ab, wenn videoCapture.read einen false Wert liefert
-		if (!videoCapture.read(videoFrame))
+		if (!videoCapture.read(videoFrame)){
+			input = 'c';
 			break;
+		}
 
 		frameNumber++;
 		showVideoFrame(videoFrame);
@@ -149,7 +152,7 @@ char VideoEngine::loopVideo(int delayTime){
 	cout << "'f': Dateiaufnahme beenden: " << endl;
 
 	// solange nicht "q" (Videoloop beenden) oder "c" (Effekt beenden) gedrückt wird läuft diese Schleife
-	while(keyRequest != 'q' && keyRequest != 'c'){
+	while(keyRequest != 'q' && keyRequest != 'c'&& keyRequest != 'e'){
 		// Diese Schleife läuft zusätzlich zu den Bedingungen im for, solange nicht "q" oder "c" gedrückt wird
 		for (int i = 0; i < delayTime; i++){
 			Mat videoFrame (frameHeight, frameWidth, CV_8UC3);
@@ -159,7 +162,7 @@ char VideoEngine::loopVideo(int delayTime){
 
 			if(kbhit()){
 				keyRequest = getch();
-				if(keyRequest == 'q' || keyRequest == 'c'){
+				if(keyRequest == 'q' || keyRequest == 'c' || keyRequest != 'e'){
 					if (recorderCheck == true){
 						videoWriter.release();
 						recorderCheck == false;

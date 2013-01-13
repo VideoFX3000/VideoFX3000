@@ -1,37 +1,36 @@
 To Do Liste:
 
+noch nicht fertige:
+- HighPass, HighPassEffekt jeweils .cpp
+- VideoEngine.cpp
+- Doku
+- ggf. Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
+- VideoEngine.cpp: kommentieren (zum Schluss)
+- Strukturdiagramm
+- Präsentation
+
+
 ERL - Videobuffer, Delay
 ERL - Geisterbilder-Effekt baue
 ERL (- Webcam)
-
 ERL - Looper: schneller in den neuen Loop reingehen
 ERL (- Looper: Webcamfunktion)
-
-
-- LooperEffect.h: kommentieren
-- LooperEffect.cpp: kommentieren
-- Backgroundsubstraction.h: kommentieren
-- Backgroundsubstraction.cpp: kommentieren
-- MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
-- MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist
-- VideoEngine.h: kommentieren (zum Schluss)
-- VideoEngine.cpp: kommentieren (zum Schluss)
-
+ERL - LooperEffect.h: kommentieren
+ERL - LooperEffect.cpp: kommentieren
+ERL - Backgroundsubstraction.h: kommentieren
+ERL - Backgroundsubstraction.cpp: kommentieren
+ERL - MagicCapEffect.h: kommentieren wenn die Klasse fertig ist
+ERL - MagicCapEffect.cpp: kommentieren wenn die Klasse fertig ist
+ERL - VideoEngine.h: kommentieren (zum Schluss)
 ERL - VideoEngineMain.cpp: Instanzvariablen der Subklassen und Aufrufe
 
 WICHTIG
 ERL - Aufnahmefunktion wieder einbauen
-- Video soll weiterlaufen bis keine verzögerten Frames mehr vorhanden sind
-ERL Transparenzeffekt"- Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden)
+ERL - Konsolensteuerung anpassen (bei "q" außerhalb des Effekts Programm beenden)
 ERL - Enter-Aufforderung teilweise entfernen (prüfen wo)
-- Doku
-- Strukturdiagramm
-- Präsentation
 ERL - VideoEngine.cpp: Array statt VideoWriterObjekt
 ERL - DelayEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
 ERL - MagicCapEffekt-Klasse: in 2 Klassen (DelayEffect/GhostEffect) aufteilen
-
-- DOKUMENTATION SCHREIBEN
 
 
 
@@ -51,5 +50,5 @@ ERL - LooperEffect:
 		- wie bekommen wir es hin, dass der Looper sofort nach Drücken der Taste "q" beendet wird, ABER der looper so wie bisher funktioniert (also anschließend weitere Loops aufgezeichnet werden können)
 - DelayEffect:
 ERL	- ist es sinnvoll, die Verarbeitungen für ein gewisses Intervall durchzuführen, also z. B. pro Sekunde? (wie würde das bei eine FrameRate von 29.97 funktionieren?)
-	- wie realisieren wir, dass der DelayEffect immer bis zum Ende läuft (beispielsweise bricht die Wiedergabe ab, wenn das video zu Ende ist). Am Besten wäre es, wenn die verzögerten Frames zum Ende hin ausgeblendet
+OFFEN	- wie realisieren wir, dass der DelayEffect immer bis zum Ende läuft (beispielsweise bricht die Wiedergabe ab, wenn das video zu Ende ist). Am Besten wäre es, wenn die verzögerten Frames zum Ende hin ausgeblendet
 	  würden, sodass das Video schließlich mit einem Frame endet.

@@ -1,5 +1,3 @@
-//Fertig
-
 #include "VideoEngine.h"
 using namespace cv;
 using namespace std;
@@ -11,6 +9,7 @@ void looperAusgabe(){
 	cout << "'l': Puffer auslesen und gelooped wiedergeben" << endl;
 	cout << "'q': Loopwiedergabe beenden" << endl;
 	cout << "'c': Effekt abbrechen und zum Hauptmenue zurueckkehren" << endl;
+	cout << "'e': Programm beenden"<< endl;
 }
 
 void headerAusgabe(){
@@ -44,6 +43,7 @@ int main()
 		cout << "Tarnkappe: '4 + Enter'" << endl;
 		cout << "Hochpass: '5 + Enter'" << endl;
 		cout << "Transparenz: '6 + Enter'" << endl;
+		cout << "Programm beenden: 'e + Enter'" << endl;
 
 		cin >> inputPrg;
 
@@ -82,7 +82,7 @@ int main()
 
 			loop = new LooperEffect();
 			app.setEffect(loop);
-			if (app.openVideo(camPath, "Loopeffekt"))
+			if (app.openVideo(camPath, "Loopereffekt"))
 			{
 				inputPrg = app.runVideo();
 				destroyAllWindows();
@@ -148,9 +148,14 @@ int main()
 	system("cls");
 	cout << endl << "VideoFX_3000 wird beendet." << endl;
 	cout << "Auf Wiedersehen sagen Danny Kern und Ivonne Kubitza!" << endl;
-	cout << "(bitte 'ENTER' druecken)" << endl;
+	cout << "Bitte Enter druecken" << endl;
 	getchar();
 	getchar();
+	cout << "*       *  ********  *     *           *******    ******    ******    ******" << endl;
+	cout << " *     *   *          *   *                   *  *      *  *      *  *      *" << endl;
+	cout << "  *   *    *****        *                  ****  *      *  *      *  *      *" << endl;
+	cout << "   * *     *          *   *                   *  *      *  *      *  *      *" << endl;
+	cout << "    *      *         *     * ********  *******    ******    ******    ******" << endl;
 }
 
 

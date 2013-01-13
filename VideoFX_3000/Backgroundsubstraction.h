@@ -1,5 +1,3 @@
-// Fertig
-
 #ifndef _BACKGROUNDSUBSTRACTION_H
 #define _BACKGROUNDSUBSTRACTION_H
 
@@ -12,6 +10,7 @@ class Backgroundsubstraction : public ToolInterface //bedeutet: ToolInterface is
 public:
 	Backgroundsubstraction(void);
 	virtual~Backgroundsubstraction(void);
+	// Verarbeitungsfunktion dieser Klasse
 	virtual cv::Mat process(cv::Mat& input, int delta);
 private:
 	cv::Mat firstFrame;

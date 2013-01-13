@@ -1,5 +1,3 @@
-// FERTIG
-
 #ifndef DELAYEFFECT_H
 #define DELAYEFFECT_H
 

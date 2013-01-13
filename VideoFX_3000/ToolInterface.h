@@ -1,5 +1,3 @@
-// Fertig
-
 #ifndef TOOLINTERFACE_H
 #define TOOLINTERFACE_H
 
@@ -16,8 +14,7 @@ class ToolInterface
 {
 public:
 	virtual ~ToolInterface(void){};
-	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird, dort werden
-	// jeweils die anderen Member-Funktionen aufgerufen
+	// abstrakte Methode, die von der gleichnamigen Methode der Unterklasse aufgerufen und überschrieben wird
 	virtual cv::Mat process(cv::Mat& input, int delta) = 0;
 };
 

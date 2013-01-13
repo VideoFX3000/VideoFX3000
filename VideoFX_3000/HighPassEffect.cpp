@@ -1,4 +1,4 @@
-//Fertig
+// NICHT FERTIG
 
 #include "HighPassEffect.h"
 #include "HighPass.h"
@@ -43,7 +43,7 @@ Mat HighPassEffect::processFrame(Mat currentFrame){
 
 	//Hochpass wird von der Klasse HighPass durchgeführt
 	processedFrame = tool->process(currentFrame, delta);
-	imshow(windowName, processedFrame);// ÜBERGANGSWEISE zum Testen, im fertigen Programm muss nur in VideoEngine.cpp das videoFrame NACH der process-Funktion angezeigt werden
+	imshow(windowName, processedFrame);
 	waitKey(30);
 
 	// aktuelles Bild wird im Fenster "Video" wiedergegeben

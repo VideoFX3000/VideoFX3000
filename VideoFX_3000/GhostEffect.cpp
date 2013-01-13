@@ -1,5 +1,3 @@
-// Fertig
-
 #include "GhostEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>

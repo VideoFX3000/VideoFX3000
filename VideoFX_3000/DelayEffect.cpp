@@ -1,5 +1,3 @@
-// Fertig
-
 #include "DelayEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>

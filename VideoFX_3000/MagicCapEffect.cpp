@@ -1,5 +1,3 @@
-// Fertig
-
 #include "MagicCapEffect.h"
 #include "Backgroundsubstraction.h"
 #include <iostream>
@@ -61,10 +59,10 @@ Mat MagicCapEffect::processFrame(Mat currentFrame){
 	capIntensityB = getTrackbarPos(trackbarCapIntensityB, windowMagicCapEffect);
 
 	if (frameNumber > 2){
-		firstFrame.copyTo(copyOfFirstFrame); // rechnet Werte der Trackbars zum Frame und speichert den Frame in processedFrame
-		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame); // erzeugt Bin‰rmaske des original Bildes (currentFrame)
-		binaryMask = tool->process(currentFrame, 0); // kopiert alles des verarbeiteten Frames, auﬂer dem maskierten Bereich, in das erste Frame
-		processedFrame.copyTo(copyOfFirstFrame, binaryMask);
+		firstFrame.copyTo(copyOfFirstFrame); 
+		add(copyOfFirstFrame, Scalar(capIntensityB, capIntensityG, capIntensityR), processedFrame); // rechnet Werte der Trackbars zum Frame und speichert den Frame in processedFrame
+		binaryMask = tool->process(currentFrame, 0); // erzeugt Bin‰rmaske des original Bildes (currentFrame)
+		processedFrame.copyTo(copyOfFirstFrame, binaryMask);// kopiert alles des verarbeiteten Frames, auﬂer dem maskierten Bereich, in das erste Frame
 		imshow(windowMagicCapEffect, copyOfFirstFrame);
 	}
 	return copyOfFirstFrame;

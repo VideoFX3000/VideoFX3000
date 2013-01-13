@@ -1,4 +1,4 @@
-//Fertig
+// NICHT FERTIG
 
 #include "HighPass.h"
 using namespace cv;

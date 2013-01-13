@@ -1,5 +1,3 @@
-// Fertig
-
 #ifndef MAGICCAPEFFECT_H
 #define MAGICCAPEFFECT_H
 

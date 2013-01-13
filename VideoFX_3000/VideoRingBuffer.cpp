@@ -1,5 +1,3 @@
-// FERTIG
-
 #include "VideoRingBuffer.h"
 using namespace cv;
 
@@ -15,6 +13,7 @@ VideoRingBuffer::~VideoRingBuffer(void)
 {
 }
 
+// writeIndex auf 0 setzen
 void VideoRingBuffer::setWriteIndex(void){
 	writeIndex = 0;
 }

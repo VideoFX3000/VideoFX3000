@@ -1,5 +1,3 @@
-// FERTIG
-
 #ifndef __VIDEOENGINE_H
 #define __VIDEOENGINE_H
 
